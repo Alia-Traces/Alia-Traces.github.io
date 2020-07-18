@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>End of an Era (4KB Executable Graphics) | Alia’s artefacts</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="End of an Era (4KB Executable Graphics)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Released at Solskogen 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo" />
+<meta property="og:description" content="Released at Solskogen 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo" />
+<link rel="canonical" href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/11/end-of-an-era.html" />
+<meta property="og:url" content="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/11/end-of-an-era.html" />
+<meta property="og:site_name" content="Alia’s artefacts" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-11T05:46:20-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-07-11T05:46:20-05:00","headline":"End of an Era (4KB Executable Graphics)","mainEntityOfPage":{"@type":"WebPage","@id":"https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/11/end-of-an-era.html"},"description":"Released at Solskogen 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo","@type":"BlogPosting","url":"https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/11/end-of-an-era.html","dateModified":"2020-07-11T05:46:20-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://alia-traces.github.io/feed.xml" title="Alia's artefacts" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Alia&#39;s artefacts</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">End of an Era (4KB Executable Graphics)</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-07-11T05:46:20-05:00" itemprop="datePublished">Jul 11, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><img src="/images/end_of_an_era/Screenshot.jpg" alt="Screenshot" /></p>
+
+<p>Released at Solskogen 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).</p>
+
+<p><a href="https://demozoo.org/graphics/280517/">Download on Demozoo</a>
+<!--more--></p>
+
+<h3 id="where-leaves-fall-in-autumn-flowers-bloom-in-spring"><em>Where leaves fall in Autumn, flowers bloom in Spring</em></h3>
+
+<p>Solskogen 2020 was the last ever Solskogen party, and I wanted to make something fitting.</p>
+
+<p>It was the end of an era, and a time of sadness as well as a really good party. Sunset and Autumn came to mind, and Autumn speaks to me of falling leaves the colour of flames and golden light.</p>
+
+<p>So, a leaf strewn forest floor, dappled golden sunlight. The final element was the ring - discarded and left in the woods, a symbolic closing gesture.</p>
+
+<h2 id="breakdown">Breakdown</h2>
+
+<p>Again, I started with the lighting. The ambient light has a green tint, and the main light is quite orange to hint at sunset.</p>
+
+<p>I placed 2 planes between the scene and the light with holes in to create a dappled light effect (you can see the hole pattern, but with the leaves in places it’s not visible so wasn’t worth changing).</p>
+
+<p><img src="/images/end_of_an_era/1.jpg" alt="Screenshot" /></p>
+
+<p>The ring is just a stretched torus.</p>
+
+<p><img src="/images/end_of_an_era/2.jpg" alt="Screenshot" /></p>
+
+<p>Next, leaves. I used SDFs for this, with domain repetition to basically make a grid of leaves. Size, shape, colour and rotation are randomised, and they’re given a slight curl.</p>
+
+<p><img src="/images/end_of_an_era/3.jpg" alt="Screenshot" /></p>
+
+<p>I then added more layers, with a random rotation and offset, to build the leaf pile.</p>
+
+<p>Easy, but: the leaves all intersect.</p>
+
+<p><img src="/images/end_of_an_era/4.jpg" alt="Screenshot" /></p>
+
+<p>I had to figure out how to pile leaves up without them overlapping. A physics sim wasn’t viable. Doing this analytically is way beyond my maths level. Time for dirty hacks :D</p>
+
+<p>Compare this shot with the last one - the leaves are in exactly the same position, but they magically no longer intersect:</p>
+
+<p><img src="/images/end_of_an_era/5.jpg" alt="Screenshot" /></p>
+
+<p>How? I built the leaf pile in layers, bottom to top. For each layer, I take the shape of the leaf and use it to clip any geometry above it. This means if there’s a lower leaf intersecting the current one, the part that intersects gets removed. Cheap, hacky, but looks ok 🙃</p>
+
+  </div><a class="u-url" href="/demoscene/metal/pathtracing/2020/07/11/end-of-an-era.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Alia&#39;s artefacts</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Alia&#39;s artefacts</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.twitter.com/aliatraces"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">aliatraces</span></a></li><li><a href="https://demozoo.org/sceners/113525/"><span class="username">Demozoo: Alia</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
