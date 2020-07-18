@@ -3,9 +3,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>How to fire up Xcode’s frame capture from outside of Xcode | Alia’s artefacts</title>
+<title>How to use Metal frame capture outside of Xcode | Alia’s artefacts</title>
 <meta name="generator" content="Jekyll v3.8.7" />
-<meta property="og:title" content="How to fire up Xcode’s frame capture from outside of Xcode" />
+<meta property="og:title" content="How to use Metal frame capture outside of Xcode" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview." />
 <meta property="og:description" content="Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview." />
@@ -15,7 +15,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-07-18T05:46:20-05:00" />
 <script type="application/ld+json">
-{"description":"Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview.","@type":"BlogPosting","headline":"How to fire up Xcode’s frame capture from outside of Xcode","dateModified":"2020-07-18T05:46:20-05:00","datePublished":"2020-07-18T05:46:20-05:00","url":"https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html"},"@context":"https://schema.org"}</script>
+{"description":"Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview.","@type":"BlogPosting","headline":"How to use Metal frame capture outside of Xcode","dateModified":"2020-07-18T05:46:20-05:00","datePublished":"2020-07-18T05:46:20-05:00","url":"https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://alia-traces.github.io/feed.xml" title="Alia's artefacts" /></head>
 <body><header class="site-header" role="banner">
@@ -38,7 +38,7 @@
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">How to fire up Xcode&#39;s frame capture from outside of Xcode</h1>
+    <h1 class="post-title p-name" itemprop="name headline">How to use Metal frame capture outside of Xcode</h1>
     <p class="post-meta">
       <time class="dt-published" datetime="2020-07-18T05:46:20-05:00" itemprop="datePublished">Jul 18, 2020
       </time></p>
@@ -47,15 +47,21 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview.</p>
 
-<p><img src="/images/MetalToyUI.jpg" alt="MetalToy's user interface" /></p>
+<p><img src="/images/MetalToyUI.jpg" alt="MetalToy's user interface" /><br /><em>MetalToy looks like this</em></p>
 
 <p>At some point I’ll clean it up and open source it, but here’s something that might be of use to other mac / iOS devs. Yesterday I was trying to fix a bug in a shader, and I thought</p>
 
-<p><em>It’d be so good to have a ‘Debug’ button that fires up a full shader debugger</em></p>
+<h3 id="itd-be-so-good-to-have-a-debug-button-that-fires-up-a-full-shader-debugger"><em>“It’d be so good to have a ‘Debug’ button that fires up a full shader debugger”</em></h3>
 
 <p>It took around 20 minutes to do it :D</p>
 
-<p>Xcode already has some amazing GPU debugging and profiling tools built in, and you can simply hit the frame capture button while debugging your app. This only works if you’re debugging it though. What I needed was a way to run frame capture outside of Xcode. Turns out Apple anticipated this nicely!</p>
+<p><img src="/images/MetalToyDebugButton.jpg" alt="MetalToy with a shiny new debug button" /><br /><em>One shiny new Debug button</em></p>
+
+<h2 id="dont-build-your-own-gpu-debugger">Don’t build your own GPU debugger</h2>
+
+<p>Unless you really want to I guess? Xcode already has some amazing GPU debugging and profiling tools built in, and you can simply hit the frame capture button while debugging your app. This only works if you’re debugging it though.</p>
+
+<p>What I needed was a way to run frame capture outside of Xcode. Turns out Apple anticipated this nicely!</p>
 
 <p>For full details, you can see <a href="https://developer.apple.com/documentation/metal/frame_capture_debugging_tools/enabling_frame_capture">Apple’s documentation here</a>. Since their docs have a habit of, uh, moving, disappearing or not being updated, I’ll document the process here:</p>
 
@@ -68,9 +74,17 @@
 
 <p>That means I can just hit the Debug button at any time in MetalToy and it fires up the full Xcode GPU debugging tools :D</p>
 
-<p>You could of course also just write the file out and send it to your own server, or ask the customer to email it or whatever - very handy if a customer is seeing an unusual bug you can’t reproduce!</p>
+<p><img src="MetalToyGPUDebug.jpg" alt="The shader in Xcode's GPU debugger" /><br /><em>A click of a button, and we have a full shader debugger!</em></p>
 
-<p>Here’s the code:</p>
+<h2 id="very-useful-for-remote-debugging">VERY useful for remote debugging</h2>
+
+<p>You could also just write the file out and send it to your own server, or ask the customer to email it.</p>
+
+<p>Have a customer who’s seeing an unusual bug you can’t reproduce? Now they can just hit a button, and it’ll send you a frame capture so you can reproduce it instantly.</p>
+
+<h2 id="the-code">The Code</h2>
+
+<p>Here’s what I did - the Debug button just calls this function:</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">captureFrame</span><span class="p">()</span> <span class="p">{</span>
 	<span class="c1">// Stop playback if playing</span>

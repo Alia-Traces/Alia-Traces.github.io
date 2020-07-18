@@ -1,14 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://alia-traces.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alia-traces.github.io/" rel="alternate" type="text/html" /><updated>2020-07-18T08:35:45-05:00</updated><id>https://alia-traces.github.io/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Thoughts on realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">How to fire up Xcode’s frame capture from outside of Xcode</title><link href="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" rel="alternate" type="text/html" title="How to fire up Xcode’s frame capture from outside of Xcode" /><published>2020-07-18T05:46:20-05:00</published><updated>2020-07-18T05:46:20-05:00</updated><id>https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode</id><content type="html" xml:base="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html">&lt;p&gt;Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://alia-traces.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alia-traces.github.io/" rel="alternate" type="text/html" /><updated>2020-07-18T09:07:36-05:00</updated><id>https://alia-traces.github.io/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Thoughts on realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">How to use Metal frame capture outside of Xcode</title><link href="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" rel="alternate" type="text/html" title="How to use Metal frame capture outside of Xcode" /><published>2020-07-18T05:46:20-05:00</published><updated>2020-07-18T05:46:20-05:00</updated><id>https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode</id><content type="html" xml:base="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html">&lt;p&gt;Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/MetalToyUI.jpg&quot; alt=&quot;MetalToy's user interface&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/MetalToyUI.jpg&quot; alt=&quot;MetalToy's user interface&quot; /&gt;&lt;br /&gt;&lt;em&gt;MetalToy looks like this&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;At some point I’ll clean it up and open source it, but here’s something that might be of use to other mac / iOS devs. Yesterday I was trying to fix a bug in a shader, and I thought&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;It’d be so good to have a ‘Debug’ button that fires up a full shader debugger&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&quot;itd-be-so-good-to-have-a-debug-button-that-fires-up-a-full-shader-debugger&quot;&gt;&lt;em&gt;“It’d be so good to have a ‘Debug’ button that fires up a full shader debugger”&lt;/em&gt;&lt;/h3&gt;
 
 &lt;p&gt;It took around 20 minutes to do it :D&lt;/p&gt;
 
-&lt;p&gt;Xcode already has some amazing GPU debugging and profiling tools built in, and you can simply hit the frame capture button while debugging your app. This only works if you’re debugging it though. What I needed was a way to run frame capture outside of Xcode. Turns out Apple anticipated this nicely!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/MetalToyDebugButton.jpg&quot; alt=&quot;MetalToy with a shiny new debug button&quot; /&gt;&lt;br /&gt;&lt;em&gt;One shiny new Debug button&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;dont-build-your-own-gpu-debugger&quot;&gt;Don’t build your own GPU debugger&lt;/h2&gt;
+
+&lt;p&gt;Unless you really want to I guess? Xcode already has some amazing GPU debugging and profiling tools built in, and you can simply hit the frame capture button while debugging your app. This only works if you’re debugging it though.&lt;/p&gt;
+
+&lt;p&gt;What I needed was a way to run frame capture outside of Xcode. Turns out Apple anticipated this nicely!&lt;/p&gt;
 
 &lt;p&gt;For full details, you can see &lt;a href=&quot;https://developer.apple.com/documentation/metal/frame_capture_debugging_tools/enabling_frame_capture&quot;&gt;Apple’s documentation here&lt;/a&gt;. Since their docs have a habit of, uh, moving, disappearing or not being updated, I’ll document the process here:&lt;/p&gt;
 
@@ -21,9 +27,17 @@
 
 &lt;p&gt;That means I can just hit the Debug button at any time in MetalToy and it fires up the full Xcode GPU debugging tools :D&lt;/p&gt;
 
-&lt;p&gt;You could of course also just write the file out and send it to your own server, or ask the customer to email it or whatever - very handy if a customer is seeing an unusual bug you can’t reproduce!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;MetalToyGPUDebug.jpg&quot; alt=&quot;The shader in Xcode's GPU debugger&quot; /&gt;&lt;br /&gt;&lt;em&gt;A click of a button, and we have a full shader debugger!&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;Here’s the code:&lt;/p&gt;
+&lt;h2 id=&quot;very-useful-for-remote-debugging&quot;&gt;VERY useful for remote debugging&lt;/h2&gt;
+
+&lt;p&gt;You could also just write the file out and send it to your own server, or ask the customer to email it.&lt;/p&gt;
+
+&lt;p&gt;Have a customer who’s seeing an unusual bug you can’t reproduce? Now they can just hit a button, and it’ll send you a frame capture so you can reproduce it instantly.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-code&quot;&gt;The Code&lt;/h2&gt;
+
+&lt;p&gt;Here’s what I did - the Debug button just calls this function:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;captureFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
 	&lt;span class=&quot;c1&quot;&gt;// Stop playback if playing&lt;/span&gt;
