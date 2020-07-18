@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://alia-traces.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alia-traces.github.io/" rel="alternate" type="text/html" /><updated>2020-07-18T10:55:15-05:00</updated><id>https://alia-traces.github.io/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Thoughts on realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">How to use Metal frame capture outside of Xcode</title><link href="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" rel="alternate" type="text/html" title="How to use Metal frame capture outside of Xcode" /><published>2020-07-18T05:46:20-05:00</published><updated>2020-07-18T05:46:20-05:00</updated><id>https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode</id><content type="html" xml:base="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html">&lt;p&gt;Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://alia-traces.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alia-traces.github.io/" rel="alternate" type="text/html" /><updated>2020-07-18T11:31:30-05:00</updated><id>https://alia-traces.github.io/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Thoughts on realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">How to use Metal frame capture outside of Xcode</title><link href="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" rel="alternate" type="text/html" title="How to use Metal frame capture outside of Xcode" /><published>2020-07-18T05:46:20-05:00</published><updated>2020-07-18T05:46:20-05:00</updated><id>https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode</id><content type="html" xml:base="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html">&lt;p&gt;Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/MetalToyUI.jpg&quot; alt=&quot;MetalToy's user interface&quot; /&gt;&lt;br /&gt;&lt;em&gt;MetalToy looks like this&lt;/em&gt;
 &lt;!--more--&gt;&lt;/p&gt;
@@ -80,9 +80,74 @@
 	&lt;span class=&quot;kt&quot;&gt;DispatchQueue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;XcodeOpen&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;qos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;utility&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;concurrent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;autoreleaseFrequency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inherit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
 			&lt;span class=&quot;n&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;executeAndReturnError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><category term="metal" /><category term="tools" /><category term="xcode" /><summary type="html">Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview. MetalToy looks like this</summary></entry><entry><title type="html">Ice Core (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/05/22/ice-core.html" rel="alternate" type="text/html" title="Ice Core (4KB Executable Graphics)" /><published>2020-05-22T05:46:20-05:00</published><updated>2020-05-22T05:46:20-05:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/05/22/ice-core</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/05/22/ice-core.html">&lt;p&gt;&lt;img src=&quot;/images/ice_core/ice_core_screenshot.jpg&quot; alt=&quot;Ice Core screenshot&quot; /&gt;&lt;/p&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><category term="metal" /><category term="tools" /><category term="xcode" /><summary type="html">Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview. MetalToy looks like this</summary></entry><entry><title type="html">Cloth!!! (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/06/20/cloth.html" rel="alternate" type="text/html" title="Cloth!!! (4KB Executable Graphics)" /><published>2020-06-20T05:46:20-05:00</published><updated>2020-06-20T05:46:20-05:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/06/20/cloth</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/06/20/cloth.html">&lt;p&gt;&lt;img src=&quot;/images/cloth/screenshot.jpg&quot; alt=&quot;Undefined Symbol screenshot&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Released at Outline 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).
+&lt;p&gt;Released at Nova 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data) with help from Lia-Sae.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://demozoo.org/graphics/279420/&quot;&gt;Download on Demozoo&lt;/a&gt;
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-challenge-rendering-realistic-cloth&quot;&gt;The challenge: Rendering realistic cloth&lt;/h2&gt;
+
+&lt;p&gt;I was thinking a lot about materials before I started this, particularly how texture isn’t really a thing when you look close enough: there’s only geometry and material. Texture is how we perceive fine surface details.&lt;/p&gt;
+
+&lt;p&gt;It follows, then, that realistic rendering should use ultra-detailed geometry, not textures.&lt;/p&gt;
+
+&lt;p&gt;I decided to try it, by rendering cloth 🤦‍♀️&lt;/p&gt;
+
+&lt;h2 id=&quot;breakdown&quot;&gt;Breakdown&lt;/h2&gt;
+
+&lt;p&gt;To give the scene some scale, I had to show cloth up close. That ended up being difficult - how to show it nicely and give it scale? I decided to make tiny cloth flags and carpet, and use Lego to give it a sense of scale.&lt;/p&gt;
+
+&lt;p&gt;I started with the lighting. The ambient light has a blue tint and the main light yellow to indicate daytime / sunlight. To provide a visual cue that we’re indoors I added some shadows across the scene, perhaps the wooden frame between window panes.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/cloth/lighting.jpg&quot; alt=&quot;Lighting setup&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Getting the lighting right is important - without the main (sun) light, the scene looks drab and flat.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/cloth/no_light.jpg&quot; alt=&quot;Lighting setup&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Apart from that the scene is quite simple - carpet, 2 flags, some lego blocks.&lt;/p&gt;
+
+&lt;h2 id=&quot;cloth-rendering&quot;&gt;Cloth rendering&lt;/h2&gt;
+
+&lt;p&gt;Here’s how the cloth works:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/cloth/zoom1.jpg&quot; alt=&quot;Zoomed cloth&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/cloth/zoom2.jpg&quot; alt=&quot;Zoomed cloth&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/cloth/zoom3.jpg&quot; alt=&quot;Zoomed cloth&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/cloth/zoom4.jpg&quot; alt=&quot;Zoomed cloth&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s literally just modelled down to fibre level 🙃 With path tracing this is actually viable - with many samples per pixel aliasing is not an issue, and because light bounces around within the threads the lighting and colour is realistic.&lt;/p&gt;
+
+&lt;p&gt;Generating this as a mesh clearly isn’t viable, so this is rendered as a raymarched SDF (signed distance field). In fact only 2 single fibres are drawn - they’re repeated, twisted around themselves to form threads, mirrored and twisted again to form ‘string’ (Lia-Sae will probably tell me that’s the wrong term ;) then repeated and woven together to form cloth.&lt;/p&gt;
+
+&lt;p&gt;This is how it works in cross-section:&lt;/p&gt;
+
+&lt;iframe width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; src=&quot;https://www.shadertoy.com/embed/3dSBRK?gui=true&amp;amp;t=10&amp;amp;paused=true&amp;amp;muted=false&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h3 id=&quot;the-importance-of-light-bounces&quot;&gt;The importance of light bounces&lt;/h3&gt;
+
+&lt;p&gt;Each time the ray bounces, it transmits colour from the surface. This means if a ray bounces multiple times within the cloth, it both increases the brightness of the cloth and also the richness of the colour.&lt;/p&gt;
+
+&lt;p&gt;This turns out to be critical:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/cloth/bounces1.jpg&quot; alt=&quot;Effect of light bounces&quot; /&gt;
+&lt;br /&gt;&lt;em&gt;5 bounces per sample&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/cloth/bounces2.jpg&quot; alt=&quot;Effect of light bounces&quot; /&gt;
+&lt;br /&gt;&lt;em&gt;15 bounces per sample&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-downside&quot;&gt;The downside&lt;/h2&gt;
+
+&lt;p&gt;Of course there’s a catch: rendering geometry this fine is &lt;em&gt;expensive&lt;/em&gt;. I optimised this to hell, and it’s still very slow - especially when many light bounces are needed. I think in the end the release version only manages ~12 samples per pixel on my GPU (a Vega 56), which is why it’s a bit noisy…&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Nova 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data) with help from Lia-Sae. Download on Demozoo</summary></entry><entry><title type="html">Ice Core (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/05/22/ice-core.html" rel="alternate" type="text/html" title="Ice Core (4KB Executable Graphics)" /><published>2020-05-22T05:46:20-05:00</published><updated>2020-05-22T05:46:20-05:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/05/22/ice-core</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/05/22/ice-core.html">&lt;p&gt;&lt;img src=&quot;/images/ice_core/ice_core_screenshot.jpg&quot; alt=&quot;Ice Core screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Released at Outline 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://demozoo.org/graphics/278502/&quot;&gt;Download on Demozoo&lt;/a&gt;
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;2nd-demoscene-release&quot;&gt;2nd demoscene release&lt;/h2&gt;
@@ -97,9 +162,11 @@
 
 &lt;p&gt;There are also bubbles and particles within the ice. The geometry is an SDF, and the one nice trick I came up with here is the dark particles - I used &lt;code class=&quot;highlighter-rouge&quot;&gt;p = fract(p);&lt;/code&gt; to repeat space, then placed a sphere at a random position in each cell.&lt;/p&gt;
 
-&lt;p&gt;Normally it’s important to keep the sphere inside the cell to avoid artefacts, but in this case such artefacts produce dark spots in the ice - which look like floating particles ;)&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Outline 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).</summary></entry><entry><title type="html">Undefined Symbol (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/04/12/undefined-symbol.html" rel="alternate" type="text/html" title="Undefined Symbol (4KB Executable Graphics)" /><published>2020-04-12T05:46:20-05:00</published><updated>2020-04-12T05:46:20-05:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/04/12/undefined-symbol</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/04/12/undefined-symbol.html">&lt;p&gt;&lt;img src=&quot;/images/undefined_symbol/undefined_symbol_screenshot.jpg&quot; alt=&quot;Undefined Symbol screenshot&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Normally it’s important to keep the sphere inside the cell to avoid artefacts, but in this case such artefacts produce dark spots in the ice - which look like floating particles ;)&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Outline 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Undefined Symbol (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/04/12/undefined-symbol.html" rel="alternate" type="text/html" title="Undefined Symbol (4KB Executable Graphics)" /><published>2020-04-12T05:46:20-05:00</published><updated>2020-04-12T05:46:20-05:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/04/12/undefined-symbol</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/04/12/undefined-symbol.html">&lt;p&gt;&lt;img src=&quot;/images/undefined_symbol/undefined_symbol_screenshot.jpg&quot; alt=&quot;Undefined Symbol screenshot&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Released at Revision 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).
+&lt;p&gt;Released at Revision 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://demozoo.org/graphics/277166/&quot;&gt;Download on Demozoo&lt;/a&gt;
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;hello-world&quot;&gt;Hello World&lt;/h2&gt;
@@ -125,4 +192,4 @@
   &lt;li&gt;The colours in the glass are pink, blue and clear (white… kinda), the colours of the transgender flag&lt;/li&gt;
   &lt;li&gt;The camera looks through an open window - this is a point of view&lt;/li&gt;
   &lt;li&gt;The background objects, a sphere a cube and a torus, represent graphics and the demoscene. Naturally, they’re shiny :)&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Revision 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).</summary></entry></feed>
+&lt;/ul&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Revision 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry></feed>
