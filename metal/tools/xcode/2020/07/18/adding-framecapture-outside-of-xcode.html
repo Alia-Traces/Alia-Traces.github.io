@@ -7,15 +7,15 @@
 <meta name="generator" content="Jekyll v3.8.7" />
 <meta property="og:title" content="How to fire up Xcode’s frame capture from outside of Xcode" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Here’s how I added the thing…" />
-<meta property="og:description" content="Here’s how I added the thing…" />
+<meta name="description" content="Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview." />
+<meta property="og:description" content="Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview." />
 <link rel="canonical" href="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" />
 <meta property="og:url" content="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" />
 <meta property="og:site_name" content="Alia’s random thoughts" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-07-18T05:46:20-05:00" />
 <script type="application/ld+json">
-{"description":"Here’s how I added the thing…","@type":"BlogPosting","headline":"How to fire up Xcode’s frame capture from outside of Xcode","dateModified":"2020-07-18T05:46:20-05:00","datePublished":"2020-07-18T05:46:20-05:00","url":"https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html"},"@context":"https://schema.org"}</script>
+{"description":"Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview.","@type":"BlogPosting","headline":"How to fire up Xcode’s frame capture from outside of Xcode","dateModified":"2020-07-18T05:46:20-05:00","datePublished":"2020-07-18T05:46:20-05:00","url":"https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://alia-traces.github.io/feed.xml" title="Alia's random thoughts" /></head>
 <body><header class="site-header" role="banner">
@@ -45,10 +45,73 @@
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>Here’s how I added the thing…</p>
+    <p>Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview.</p>
 
-<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">thing</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nf">print</span><span class="p">(</span><span class="s">"Hi"</span><span class="p">)</span>
+<p><img src="/images/MetalToyUI.jpg" alt="MetalToy's user interface" /></p>
+
+<p>At some point I’ll clean it up and open source it, but here’s something that might be of use to other mac / iOS devs. Yesterday I was trying to fix a bug in a shader, and I thought</p>
+
+<p><em>It’d be so good to have a ‘Debug’ button that fires up a full shader debugger</em></p>
+
+<p>It took around 20 minutes to do it :D</p>
+
+<p>Xcode already has some amazing GPU debugging and profiling tools built in, and you can simply hit the frame capture button while debugging your app. This only works if you’re debugging it though. What I needed was a way to run frame capture outside of Xcode. Turns out Apple anticipated this nicely!</p>
+
+<p>For full details, you can see <a href="https://developer.apple.com/documentation/metal/frame_capture_debugging_tools/enabling_frame_capture">Apple’s documentation here</a>. Since their docs have a habit of, uh, moving, disappearing or not being updated, I’ll document the process here:</p>
+
+<ol>
+  <li>In your project’s info.plist add the key “MetalCaptureEnabled”, set it to true</li>
+  <li>Add code to capture GPU commands. See <a href="https://developer.apple.com/documentation/metal/frame_capture_debugging_tools/capturing_gpu_command_data_programmatically#3325255">Apple’s docs on writing frame captures to a file here</a></li>
+</ol>
+
+<p>In my case I added a ‘Debug’ button. This pauses my MTKView (which just makes things simpler), starts capturing, calls view.draw() and ends. It save a .gputrace (frame capture) file to disk, then asks Xcode to open the file.</p>
+
+<p>That means I can just hit the Debug button at any time in MetalToy and it fires up the full Xcode GPU debugging tools :D</p>
+
+<p>You could of course also just write the file out and send it to your own server, or ask the customer to email it or whatever - very handy if a customer is seeing an unusual bug you can’t reproduce!</p>
+
+<p>Here’s the code:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">captureFrame</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// Stop playback if playing</span>
+	<span class="n">preview</span><span class="o">.</span><span class="n">play</span> <span class="o">=</span> <span class="kc">false</span>
+		
+	<span class="k">let</span> <span class="nv">captureManager</span> <span class="o">=</span> <span class="kt">MTLCaptureManager</span><span class="o">.</span><span class="nf">shared</span><span class="p">()</span>
+		
+	<span class="k">guard</span> <span class="n">captureManager</span><span class="o">.</span><span class="nf">supportsDestination</span><span class="p">(</span><span class="o">.</span><span class="n">gpuTraceDocument</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="nf">print</span><span class="p">(</span><span class="s">"Capture to a GPU tracefile is not supported"</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	
+	<span class="c1">// Write file to tmp folder</span>
+	<span class="k">let</span> <span class="nv">tmpDir</span> <span class="o">=</span> <span class="kt">FileManager</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="n">temporaryDirectory</span>
+	<span class="k">let</span> <span class="nv">destURL</span> <span class="o">=</span> <span class="n">tmpDir</span><span class="o">.</span><span class="nf">appendingPathComponent</span><span class="p">(</span><span class="s">"frameCapture.gputrace"</span><span class="p">)</span>
+	
+	<span class="c1">// Set up the capture destiptor</span>
+	<span class="k">let</span> <span class="nv">captureDescriptor</span> <span class="o">=</span> <span class="kt">MTLCaptureDescriptor</span><span class="p">()</span>
+	<span class="n">captureDescriptor</span><span class="o">.</span><span class="n">captureObject</span> <span class="o">=</span> <span class="n">mtlDev</span>
+	<span class="n">captureDescriptor</span><span class="o">.</span><span class="n">destination</span> <span class="o">=</span> <span class="o">.</span><span class="n">gpuTraceDocument</span>
+	<span class="n">captureDescriptor</span><span class="o">.</span><span class="n">outputURL</span> <span class="o">=</span> <span class="n">destURL</span>
+		
+	<span class="k">do</span> <span class="p">{</span>
+		<span class="k">try</span> <span class="n">captureManager</span><span class="o">.</span><span class="nf">startCapture</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="n">captureDescriptor</span><span class="p">)</span>
+	<span class="p">}</span>  <span class="k">catch</span> <span class="k">let</span> <span class="nv">e</span> <span class="p">{</span>
+		<span class="nf">print</span><span class="p">(</span><span class="s">"Failed to capture frame for debug: </span><span class="se">\(</span><span class="n">e</span><span class="o">.</span><span class="n">localizedDescription</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+		
+	<span class="c1">// Draw a frame to capture it</span>
+	<span class="n">preview</span><span class="o">.</span><span class="nf">draw</span><span class="p">()</span>
+		
+	<span class="n">captureManager</span><span class="o">.</span><span class="nf">stopCapture</span><span class="p">()</span>
+		
+	<span class="c1">// Open the file in xcode</span>
+	<span class="k">let</span> <span class="nv">standardPath</span> <span class="o">=</span> <span class="n">destURL</span><span class="o">.</span><span class="n">path</span>
+	<span class="k">let</span> <span class="nv">scriptSource</span> <span class="o">=</span> <span class="s">"tell application </span><span class="se">\"</span><span class="s">Xcode</span><span class="se">\"\n</span><span class="s">open </span><span class="se">\"\(</span><span class="n">standardPath</span><span class="se">)\"\n</span><span class="s">end tell"</span>
+	<span class="k">let</span> <span class="nv">script</span> <span class="o">=</span> <span class="kt">NSAppleScript</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">source</span><span class="p">:</span> <span class="n">scriptSource</span><span class="p">)</span>
+	<span class="kt">DispatchQueue</span><span class="p">(</span><span class="nv">label</span><span class="p">:</span> <span class="s">"XcodeOpen"</span><span class="p">,</span> <span class="nv">qos</span><span class="p">:</span> <span class="o">.</span><span class="n">utility</span><span class="p">,</span> <span class="nv">attributes</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">concurrent</span><span class="p">],</span> <span class="nv">autoreleaseFrequency</span><span class="p">:</span> <span class="o">.</span><span class="n">inherit</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+			<span class="n">script</span><span class="p">?</span><span class="o">.</span><span class="nf">executeAndReturnError</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+	<span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
 
