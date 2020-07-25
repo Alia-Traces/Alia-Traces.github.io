@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Reconstruction (4KB Executable Graphics) | Alia’s artefacts</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Reconstruction (4KB Executable Graphics)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Released at FieldFX 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo" />
+<meta property="og:description" content="Released at FieldFX 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo" />
+<link rel="canonical" href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html" />
+<meta property="og:url" content="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html" />
+<meta property="og:site_name" content="Alia’s artefacts" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-24T05:46:20-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-07-24T05:46:20-05:00","headline":"Reconstruction (4KB Executable Graphics)","mainEntityOfPage":{"@type":"WebPage","@id":"https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html"},"description":"Released at FieldFX 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo","@type":"BlogPosting","url":"https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html","dateModified":"2020-07-24T05:46:20-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://alia-traces.github.io/feed.xml" title="Alia's artefacts" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Alia&#39;s artefacts</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Reconstruction (4KB Executable Graphics)</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-07-24T05:46:20-05:00" itemprop="datePublished">Jul 24, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><img src="/images/reconstruction/Screenshot.jpg" alt="Screenshot" /></p>
+
+<p>Released at FieldFX 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).</p>
+
+<p><a href="https://demozoo.org/graphics/xxxxxx/">Download on Demozoo</a>
+<!--more--></p>
+
+<h3 id="glass-rendering">Glass rendering</h3>
+
+<p>I’ve always loved the way glass refracts and reflects, and rendering it is sooooo much fun.</p>
+
+<p>So, lots of glass. I havent done any comparisons, but my path tracer should produce pretty realistic results - it handles fresnel reflections, refraction, internal relection etc. There are a few sphere lights around the scene to produce caustics.</p>
+
+<p>My last few pieces have been a bit heavy, resulting in a noisy image. I wanted to make something fast this time, so I could push quality in other ways, so instead of an SDF / raymarching setup I went with pure analytic intersections (i.e. calculate which object the ray will hit and jump directly there, instead of marching into the scene in a loop).</p>
+
+<p>The downside: you’re stuck with simple geometry (or triangle based meshes - but that has its own set of problems).</p>
+
+<p>So, I decided to stick with spheres, and for interest slice them up.</p>
+
+<h3 id="meaning">Meaning</h3>
+
+<p>Having some meaning in a piece is important to me, and with only slices of spheres to play with it needed to be abstract.</p>
+
+<p>I went with a transgender theme again (indicated by the colours - the stripes in the marble form a trans flag).</p>
+
+<p>On the left, an initial pile of glass - interesting, but wrong. In the middle, the true shape is understood, and the order has been established. Finally, the parts come together in a cohesive whole, and a perfect sphere is formed.</p>
+
+<p>This reflects the transformation process the identity goes through in some transgender people: recognising that the shape of the self is wrong, figuring out the true identity, and reconstruction in the true form.</p>
+
+<h3 id="breakdown">Breakdown</h3>
+
+<p>Starting with the stage and lighting, I initially added a floor, a back wall (which is glossy so there’s some reflected light) and a couple of lights. This is a zoomed out view, with the floor set to checkerboard to make it easier to see what’s going on:</p>
+
+<p><img src="/images/reconstruction/Lighting.jpg" alt="Screenshot" /></p>
+
+<p>Depth of Field is actually turned right down, but I have another camera setting that makes the edges of the image out of focus - with a wider lens it becomes much more obvious than in the final image.</p>
+
+<p>Zooming back in, the basic layout plan was to have 3 spheres:</p>
+
+<p><img src="/images/reconstruction/Layout.jpg" alt="Screenshot" /></p>
+
+<p>Finally I took each sphere and split it into 5 slices, and moved the pieces about a bit.</p>
+
+<p>This is the raw output from the renderer:</p>
+
+<p><img src="/images/reconstruction/post1.jpg" alt="Screenshot" /></p>
+
+<p>The final stage is colour grading, because I got my grading code working for this one :D I only used about 30% of the controls in the end, since it didn’t need much else.</p>
+
+<p>My process for colour grading is to switch to YUV colour space (a single mat3 multiply), then work on luma and chroma seperately, then back to RGB.</p>
+
+<p>The first step is to increase saturation:</p>
+
+<p><img src="/images/reconstruction/post_saturation.jpg" alt="Screenshot" /></p>
+
+<p>I applied a cyan tint to remove the pink tint in the image. This lets the light colour shine through (see how the wall is more pink and the floor is more blue - the ambient colour is set to blue sky, red horizon):</p>
+
+<p><img src="/images/reconstruction/post_main_tint.jpg" alt="Screenshot" /></p>
+
+<p>I shifted the tint further into blue/green in the shadows, which looks like it’s gone too far:</p>
+
+<p><img src="/images/reconstruction/post_shadow_tint.jpg" alt="Screenshot" /></p>
+
+<p>But when the highlights are shifted more towards orange it balances that and gives a nice tonal range across the whole image:</p>
+
+<p><img src="/images/reconstruction/post_highlight_tint.jpg" alt="Screenshot" /></p>
+
+<p>The last thing I want to mention is the important of lots of light bounces with glass. Because there are so many potential paths through the surface (reflection or refraction at the surface, reflection or refraction at the exit, paths that hit multiple glass surfaces, and paths that take many internal reflections…) it’s essential to allow a large number of bounces per ray.</p>
+
+<p>I settled on 25 in the end, here’s a video showing what happens as the bounce count goes from 2-25:</p>
+
+<div>
+	<video controls="" loop="" style="min-width: 100%;">
+	<source type="video/mp4" src="/images/reconstruction/light_bounces.mp4" />
+	<source type="video/webm" src="/images/reconstruction/eclipse.webm" />
+	</video>
+</div>
+
+  </div><a class="u-url" href="/demoscene/metal/pathtracing/2020/07/24/reconstruction.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Alia&#39;s artefacts</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Alia&#39;s artefacts</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.twitter.com/aliatraces"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">aliatraces</span></a></li><li><a href="https://demozoo.org/sceners/113525/"><span class="username">Demozoo: Alia</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

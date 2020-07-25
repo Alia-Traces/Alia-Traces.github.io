@@ -1,4 +1,80 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://alia-traces.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alia-traces.github.io/" rel="alternate" type="text/html" /><updated>2020-07-18T16:09:49-05:00</updated><id>https://alia-traces.github.io/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">How to use Metal frame capture outside of Xcode</title><link href="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" rel="alternate" type="text/html" title="How to use Metal frame capture outside of Xcode" /><published>2020-07-18T05:46:20-05:00</published><updated>2020-07-18T05:46:20-05:00</updated><id>https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode</id><content type="html" xml:base="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html">&lt;p&gt;Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://alia-traces.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alia-traces.github.io/" rel="alternate" type="text/html" /><updated>2020-07-25T05:37:27-05:00</updated><id>https://alia-traces.github.io/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">Reconstruction (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html" rel="alternate" type="text/html" title="Reconstruction (4KB Executable Graphics)" /><published>2020-07-24T05:46:20-05:00</published><updated>2020-07-24T05:46:20-05:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html">&lt;p&gt;&lt;img src=&quot;/images/reconstruction/Screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Released at FieldFX 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://demozoo.org/graphics/xxxxxx/&quot;&gt;Download on Demozoo&lt;/a&gt;
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;glass-rendering&quot;&gt;Glass rendering&lt;/h3&gt;
+
+&lt;p&gt;I’ve always loved the way glass refracts and reflects, and rendering it is sooooo much fun.&lt;/p&gt;
+
+&lt;p&gt;So, lots of glass. I havent done any comparisons, but my path tracer should produce pretty realistic results - it handles fresnel reflections, refraction, internal relection etc. There are a few sphere lights around the scene to produce caustics.&lt;/p&gt;
+
+&lt;p&gt;My last few pieces have been a bit heavy, resulting in a noisy image. I wanted to make something fast this time, so I could push quality in other ways, so instead of an SDF / raymarching setup I went with pure analytic intersections (i.e. calculate which object the ray will hit and jump directly there, instead of marching into the scene in a loop).&lt;/p&gt;
+
+&lt;p&gt;The downside: you’re stuck with simple geometry (or triangle based meshes - but that has its own set of problems).&lt;/p&gt;
+
+&lt;p&gt;So, I decided to stick with spheres, and for interest slice them up.&lt;/p&gt;
+
+&lt;h3 id=&quot;meaning&quot;&gt;Meaning&lt;/h3&gt;
+
+&lt;p&gt;Having some meaning in a piece is important to me, and with only slices of spheres to play with it needed to be abstract.&lt;/p&gt;
+
+&lt;p&gt;I went with a transgender theme again (indicated by the colours - the stripes in the marble form a trans flag).&lt;/p&gt;
+
+&lt;p&gt;On the left, an initial pile of glass - interesting, but wrong. In the middle, the true shape is understood, and the order has been established. Finally, the parts come together in a cohesive whole, and a perfect sphere is formed.&lt;/p&gt;
+
+&lt;p&gt;This reflects the transformation process the identity goes through in some transgender people: recognising that the shape of the self is wrong, figuring out the true identity, and reconstruction in the true form.&lt;/p&gt;
+
+&lt;h3 id=&quot;breakdown&quot;&gt;Breakdown&lt;/h3&gt;
+
+&lt;p&gt;Starting with the stage and lighting, I initially added a floor, a back wall (which is glossy so there’s some reflected light) and a couple of lights. This is a zoomed out view, with the floor set to checkerboard to make it easier to see what’s going on:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/reconstruction/Lighting.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Depth of Field is actually turned right down, but I have another camera setting that makes the edges of the image out of focus - with a wider lens it becomes much more obvious than in the final image.&lt;/p&gt;
+
+&lt;p&gt;Zooming back in, the basic layout plan was to have 3 spheres:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/reconstruction/Layout.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally I took each sphere and split it into 5 slices, and moved the pieces about a bit.&lt;/p&gt;
+
+&lt;p&gt;This is the raw output from the renderer:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/reconstruction/post1.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The final stage is colour grading, because I got my grading code working for this one :D I only used about 30% of the controls in the end, since it didn’t need much else.&lt;/p&gt;
+
+&lt;p&gt;My process for colour grading is to switch to YUV colour space (a single mat3 multiply), then work on luma and chroma seperately, then back to RGB.&lt;/p&gt;
+
+&lt;p&gt;The first step is to increase saturation:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/reconstruction/post_saturation.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I applied a cyan tint to remove the pink tint in the image. This lets the light colour shine through (see how the wall is more pink and the floor is more blue - the ambient colour is set to blue sky, red horizon):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/reconstruction/post_main_tint.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I shifted the tint further into blue/green in the shadows, which looks like it’s gone too far:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/reconstruction/post_shadow_tint.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;But when the highlights are shifted more towards orange it balances that and gives a nice tonal range across the whole image:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/reconstruction/post_highlight_tint.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The last thing I want to mention is the important of lots of light bounces with glass. Because there are so many potential paths through the surface (reflection or refraction at the surface, reflection or refraction at the exit, paths that hit multiple glass surfaces, and paths that take many internal reflections…) it’s essential to allow a large number of bounces per ray.&lt;/p&gt;
+
+&lt;p&gt;I settled on 25 in the end, here’s a video showing what happens as the bounce count goes from 2-25:&lt;/p&gt;
+
+&lt;div&gt;
+	&lt;video controls=&quot;&quot; loop=&quot;&quot; style=&quot;min-width: 100%;&quot;&gt;
+	&lt;source type=&quot;video/mp4&quot; src=&quot;/images/reconstruction/light_bounces.mp4&quot; /&gt;
+	&lt;source type=&quot;video/webm&quot; src=&quot;/images/reconstruction/eclipse.webm&quot; /&gt;
+	&lt;/video&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at FieldFX 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">How to use Metal frame capture outside of Xcode</title><link href="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" rel="alternate" type="text/html" title="How to use Metal frame capture outside of Xcode" /><published>2020-07-18T05:46:20-05:00</published><updated>2020-07-18T05:46:20-05:00</updated><id>https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode</id><content type="html" xml:base="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html">&lt;p&gt;Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/MetalToyUI.jpg&quot; alt=&quot;MetalToy's user interface&quot; /&gt;&lt;br /&gt;&lt;em&gt;MetalToy looks like this&lt;/em&gt;
 &lt;!--more--&gt;&lt;/p&gt;
