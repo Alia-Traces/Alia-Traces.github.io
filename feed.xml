@@ -1,4 +1,76 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://alia-traces.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alia-traces.github.io/" rel="alternate" type="text/html" /><updated>2020-07-25T16:13:24-05:00</updated><id>https://alia-traces.github.io/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">Reconstruction (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html" rel="alternate" type="text/html" title="Reconstruction (4KB Executable Graphics)" /><published>2020-07-24T05:46:20-05:00</published><updated>2020-07-24T05:46:20-05:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html">&lt;p&gt;&lt;img src=&quot;/images/reconstruction/Screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://alia-traces.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alia-traces.github.io/" rel="alternate" type="text/html" /><updated>2020-08-29T05:55:10-05:00</updated><id>https://alia-traces.github.io/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">Organising your workflow with tab groups in Xcode 12</title><link href="https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs.html" rel="alternate" type="text/html" title="Organising your workflow with tab groups in Xcode 12" /><published>2020-08-29T00:00:00-05:00</published><updated>2020-08-29T00:00:00-05:00</updated><id>https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs</id><content type="html" xml:base="https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs.html">&lt;p&gt;&lt;img src=&quot;/images/xcode_tabs/hierarchy.png&quot; alt=&quot;Two levels of tab bar for tab grouping&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Xcode 12 has an all new tab system. Here’s how I use it to organise my workflow!
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;window-tabs-document-tabs-tabs-vs-spaces&quot;&gt;Window tabs, document tabs, tabs vs. spaces…&lt;/h2&gt;
+
+&lt;p&gt;This really confused me at first. There are now 2 different types of tab: window and document. These appear on 2 seperate tab bars, one under the other… it looks weird but it’s &lt;em&gt;great&lt;/em&gt; for organising your workflow!&lt;/p&gt;
+
+&lt;p&gt;Here’s how I use it.&lt;/p&gt;
+
+&lt;h3 id=&quot;window-tabs&quot;&gt;Window tabs&lt;/h3&gt;
+
+&lt;p&gt;At the top, I organise my work by topic using window tabs:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/xcode_tabs/window_tabs.png&quot; alt=&quot;Window tabs&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It makes more sense to think of window tabs as folders, and under each folder you can keep a bunch of documents open. I tend to split things up something like this:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Project&lt;/strong&gt; for the project settings, info.plist, etc.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;UI&lt;/strong&gt; for interface related files&lt;/li&gt;
+  &lt;li&gt;Code files for whatever I’m working on currently&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Debug&lt;/strong&gt; for debugging so the debugger doesn’t mess with my active editor&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Of course you can use whatever setup suits you.&lt;/p&gt;
+
+&lt;h3 id=&quot;document-tabs&quot;&gt;Document tabs&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/xcode_tabs/document_tabs.png&quot; alt=&quot;Document tabs&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Under the window tabs, I use document tabs to keep all files I’m working on open. This lets me switch quickly between files, and the hierarchy of Window and Document tabs keeps things organised, so I can have 50 tabs open but still be able to find what I’m after quickly.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-set-it-up&quot;&gt;How to set it up&lt;/h2&gt;
+
+&lt;h3 id=&quot;window-tabs-1&quot;&gt;Window tabs&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Turn on the Window Tab Bar&lt;/strong&gt; from the View menu, if it’s not already visible:
+&lt;img src=&quot;/images/xcode_tabs/tab_bar_menu.jpg&quot; alt=&quot;Turn on the window tab bar&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Add a few tabs&lt;/strong&gt; with the + button at the end of the window tab bar, as many as you need.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Rename the tabs&lt;/strong&gt;. You can use the Window menu (Rename Window Tab) or press ⌥⇧⌘t.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;document-tabs-1&quot;&gt;Document tabs&lt;/h3&gt;
+
+&lt;p&gt;There’s an important thing to know when you open a file:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Single-clicking&lt;/strong&gt; a file will open it &lt;em&gt;temporarily&lt;/em&gt;. If you click on a different file, it’ll open it in the same tab.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Double-clicking&lt;/strong&gt; a file makes it &lt;em&gt;permanent&lt;/em&gt;. If you click on another file, it’ll open in a new tab, keeping the first document open.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This is really handy: double click to open files you’re actively working on, and you’ll quickly have a useful set of tabs. When you just need a file open briefly and won’t come back to it, single click.&lt;/p&gt;
+
+&lt;p&gt;You can change this in the prefs, under Navigation.&lt;/p&gt;
+
+&lt;h2 id=&quot;a-little-debug-tab-magic&quot;&gt;A little Debug tab magic&lt;/h2&gt;
+
+&lt;p&gt;It’s frustrating to run your code, then hit a breakpoint or crash and have Xcode switch to another file and start the debugger, causing you to lose your place and your window layout.&lt;/p&gt;
+
+&lt;p&gt;You can fix this! Use the Behaviours preferences to tell Xcode to switch to the Debug tab when it pauses, or when the build fails:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/xcode_tabs/debug_behaviours.png&quot; alt=&quot;Configuring debug behaviour&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can set this up for failed tests, frame capture etc. when you want it to switch to the Debug tab too.&lt;/p&gt;</content><author><name></name></author><category term="xcode" /><category term="ios" /><category term="mac" /><category term="tools" /><summary type="html">Xcode 12 has an all new tab system. Here’s how I use it to organise my workflow!</summary></entry><entry><title type="html">Reconstruction (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html" rel="alternate" type="text/html" title="Reconstruction (4KB Executable Graphics)" /><published>2020-07-24T05:46:20-05:00</published><updated>2020-07-24T05:46:20-05:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html">&lt;p&gt;&lt;img src=&quot;/images/reconstruction/Screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Released at FieldFX 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
 
