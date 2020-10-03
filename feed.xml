@@ -1,4 +1,47 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://alia-traces.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alia-traces.github.io/" rel="alternate" type="text/html" /><updated>2020-08-29T05:55:10-05:00</updated><id>https://alia-traces.github.io/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">Organising your workflow with tab groups in Xcode 12</title><link href="https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs.html" rel="alternate" type="text/html" title="Organising your workflow with tab groups in Xcode 12" /><published>2020-08-29T00:00:00-05:00</published><updated>2020-08-29T00:00:00-05:00</updated><id>https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs</id><content type="html" xml:base="https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs.html">&lt;p&gt;&lt;img src=&quot;/images/xcode_tabs/hierarchy.png&quot; alt=&quot;Two levels of tab bar for tab grouping&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://alia-traces.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alia-traces.github.io/" rel="alternate" type="text/html" /><updated>2020-10-03T15:46:22-05:00</updated><id>https://alia-traces.github.io/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">Backlight (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight.html" rel="alternate" type="text/html" title="Backlight (4KB Executable Graphics)" /><published>2020-10-03T05:46:20-05:00</published><updated>2020-10-03T05:46:20-05:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight.html">&lt;p&gt;&lt;img src=&quot;/images/backlight/Screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Released at Inercia 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
+
+&lt;!--[Download on Demozoo](https://demozoo.org/graphics/281254/)--&gt;
+&lt;!--more--&gt;
+
+&lt;h3 id=&quot;when-you-forget-which-day-the-dealine-is&quot;&gt;When you forget which day the dealine is…&lt;/h3&gt;
+
+&lt;p&gt;This isn’t what I started out making. I started something entirely different, but it’s been a busy month and I had little time to work on it. Then somebody mentioned the deadline… on the day of the deadline 😬&lt;/p&gt;
+
+&lt;p&gt;There wasn’t enought time to finish it, so I decided to re-work an older piece. The Church of the Spinning Cube logo felt like a good place to start, so I played around with the lighting and added some glass.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-one-slightly-interesting-bit-of-new-tech&quot;&gt;The one slightly interesting bit of new ‘tech’&lt;/h3&gt;
+
+&lt;p&gt;Well, more of a composition aid, but new to me. I’d set my scene up with nice lighting and interesting caustics, but when I positioned the camera I had this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/backlight/bl-1.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s ok, but the marbles are blocking the view of the logo. Obvious solution: move the camera up:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/backlight/bl-2.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we have a good view of the logo, and a lot of the wall behind because the camera’s too high, and the nice caustics are off screen. Next obvious fix: angle the camera down:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/backlight/bl-3.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The view is fine now, but now the logo has perspective, and it looks better when it’s parallel to the camera. Tilt the wall and logo? Redesign the whole scene?!&lt;/p&gt;
+
+&lt;p&gt;No, there’s an easy fix! In photography, in this situation I would use a &lt;em&gt;wider lens&lt;/em&gt;. Then I’d take the shot parallel to the logo, from higher up. The composition would be bad, because you’d get even more wall, &lt;strong&gt;but&lt;/strong&gt; the part of the view I want would be in frame, &lt;em&gt;and I can crop it later&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;It turns out cropping isn’t even necessary! We can just &lt;em&gt;pan the camera view&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;I took this view:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/backlight/bl-2.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then I just offset the uv coordinates I use to setup the camera:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;uv -= 0.6;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;That’s it! Just one tiny line of code shifts the view down while preserving the composition. Exactly like taking a bigger view with a wider lens and cropping, only easier.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/backlight/bl-4.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Inercia 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).</summary></entry><entry><title type="html">Organising your workflow with tab groups in Xcode 12</title><link href="https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs.html" rel="alternate" type="text/html" title="Organising your workflow with tab groups in Xcode 12" /><published>2020-08-29T00:00:00-05:00</published><updated>2020-08-29T00:00:00-05:00</updated><id>https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs</id><content type="html" xml:base="https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs.html">&lt;p&gt;&lt;img src=&quot;/images/xcode_tabs/hierarchy.png&quot; alt=&quot;Two levels of tab bar for tab grouping&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Xcode 12 has an all new tab system. Here’s how I use it to organise my workflow!
 &lt;!--more--&gt;&lt;/p&gt;

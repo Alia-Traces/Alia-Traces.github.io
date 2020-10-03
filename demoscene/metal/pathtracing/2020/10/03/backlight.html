@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Backlight (4KB Executable Graphics) | Alia’s artefacts</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Backlight (4KB Executable Graphics)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Released at Inercia 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data)." />
+<meta property="og:description" content="Released at Inercia 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data)." />
+<link rel="canonical" href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight.html" />
+<meta property="og:url" content="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight.html" />
+<meta property="og:site_name" content="Alia’s artefacts" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-03T05:46:20-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-10-03T05:46:20-05:00","headline":"Backlight (4KB Executable Graphics)","mainEntityOfPage":{"@type":"WebPage","@id":"https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight.html"},"description":"Released at Inercia 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).","@type":"BlogPosting","url":"https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight.html","dateModified":"2020-10-03T05:46:20-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://alia-traces.github.io/feed.xml" title="Alia's artefacts" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Alia&#39;s artefacts</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Backlight (4KB Executable Graphics)</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-10-03T05:46:20-05:00" itemprop="datePublished">Oct 3, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><img src="/images/backlight/Screenshot.jpg" alt="Screenshot" /></p>
+
+<p>Released at Inercia 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).</p>
+
+<!--[Download on Demozoo](https://demozoo.org/graphics/281254/)-->
+<!--more-->
+
+<h3 id="when-you-forget-which-day-the-dealine-is">When you forget which day the dealine is…</h3>
+
+<p>This isn’t what I started out making. I started something entirely different, but it’s been a busy month and I had little time to work on it. Then somebody mentioned the deadline… on the day of the deadline 😬</p>
+
+<p>There wasn’t enought time to finish it, so I decided to re-work an older piece. The Church of the Spinning Cube logo felt like a good place to start, so I played around with the lighting and added some glass.</p>
+
+<h3 id="the-one-slightly-interesting-bit-of-new-tech">The one slightly interesting bit of new ‘tech’</h3>
+
+<p>Well, more of a composition aid, but new to me. I’d set my scene up with nice lighting and interesting caustics, but when I positioned the camera I had this:</p>
+
+<p><img src="/images/backlight/bl-1.jpg" alt="Screenshot" /></p>
+
+<p>It’s ok, but the marbles are blocking the view of the logo. Obvious solution: move the camera up:</p>
+
+<p><img src="/images/backlight/bl-2.jpg" alt="Screenshot" /></p>
+
+<p>Now we have a good view of the logo, and a lot of the wall behind because the camera’s too high, and the nice caustics are off screen. Next obvious fix: angle the camera down:</p>
+
+<p><img src="/images/backlight/bl-3.jpg" alt="Screenshot" /></p>
+
+<p>The view is fine now, but now the logo has perspective, and it looks better when it’s parallel to the camera. Tilt the wall and logo? Redesign the whole scene?!</p>
+
+<p>No, there’s an easy fix! In photography, in this situation I would use a <em>wider lens</em>. Then I’d take the shot parallel to the logo, from higher up. The composition would be bad, because you’d get even more wall, <strong>but</strong> the part of the view I want would be in frame, <em>and I can crop it later</em>.</p>
+
+<p>It turns out cropping isn’t even necessary! We can just <em>pan the camera view</em>.</p>
+
+<p>I took this view:</p>
+
+<p><img src="/images/backlight/bl-2.jpg" alt="Screenshot" /></p>
+
+<p>Then I just offset the uv coordinates I use to setup the camera:</p>
+
+<p><code class="highlighter-rouge">uv -= 0.6;</code></p>
+
+<p>That’s it! Just one tiny line of code shifts the view down while preserving the composition. Exactly like taking a bigger view with a wider lens and cropping, only easier.</p>
+
+<p><img src="/images/backlight/bl-4.jpg" alt="Screenshot" /></p>
+
+
+  </div><a class="u-url" href="/demoscene/metal/pathtracing/2020/10/03/backlight.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Alia&#39;s artefacts</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Alia&#39;s artefacts</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.twitter.com/aliatraces"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">aliatraces</span></a></li><li><a href="https://demozoo.org/sceners/113525/"><span class="username">Demozoo: Alia</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
