@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Kept in a box (4KB Executable Graphics) | Alia’s artefacts</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Kept in a box (4KB Executable Graphics)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo" />
+<meta property="og:description" content="Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo" />
+<link rel="canonical" href="http://localhost:4000/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html" />
+<meta property="og:url" content="http://localhost:4000/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html" />
+<meta property="og:site_name" content="Alia’s artefacts" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-31T10:46:20+00:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html","headline":"Kept in a box (4KB Executable Graphics)","dateModified":"2020-12-31T10:46:20+00:00","datePublished":"2020-12-31T10:46:20+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html"},"description":"Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Alia's artefacts" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Alia&#39;s artefacts</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Kept in a box (4KB Executable Graphics)</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-12-31T10:46:20+00:00" itemprop="datePublished">Dec 31, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><img src="/images/kept_in_a_box/kept_in_a_box_screenshot.jpg" alt="Screenshot" /></p>
+
+<p>Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).</p>
+
+<p><a href="https://demozoo.org/graphics/288426/">Download on Demozoo</a>
+<!--more--></p>
+
+<h3 id="meaning">Meaning</h3>
+
+<p>This was inspired by a particular group of people: transgender women who either accept or figure out their true identity later in life, after settling and starting a family, and choose to stay in the closet either to protect that family or to keep it together. They know how to leave their prison, they hold the key, but they choose to repress.</p>
+
+<p>Identity needs an outlet. Unable to live as themselves offline, social media provides this outlet for many - a space to present as themselves, find others, and support each other.</p>
+
+<p>However, I don’t intend this piece to be about this group in particular and avoided visual hints about who the characters may be. There are many others in this situation, for many reasons. This is dedicated to you all.</p>
+
+<h3 id="lighting">Lighting</h3>
+
+<p>Since the focus of the piece is about support as well as being in a dark place, I wanted to represent that and chiaroscuro (strongly contrasting light and dark) felt perfect.</p>
+
+<p>I wanted the scene to be very dark, with a beam of light in the centre falling on the key and the hands, with everything else lit indirectly. Since the subject is a form of imprisonment, I went with light shining through a high, barred window.</p>
+
+<p>To do this, I put a light far away from the scene:</p>
+
+<p><img src="/images/kept_in_a_box/lighting1.jpg" alt="Screenshot" /></p>
+
+<p>Then, I added a plane between the key and the light. I used a simple 2d distance function to cut a few rectangles out to let the light through.</p>
+
+<p><img src="/images/kept_in_a_box/lighting2.jpg" alt="Screenshot" /></p>
+
+<p>There isn’t actually a room at all - just the floor and one wall.</p>
+
+<p>I use biased rendering here, meaning I shoot rays out of the camera into the scene, and each time the ray intersects a surface, I cast a ray towards the light rather than just hoping the ray will randomly hit it.</p>
+
+<p>Since the light is far away and mostly blocked by a wall, rendering time would be extremely long otherwise.</p>
+
+<h3 id="modeling">Modeling</h3>
+
+<p>There are 3 models here, all made with SDFs (signed distance functions). A key, one human, and a pair of hands.</p>
+
+<h2 id="key">Key</h2>
+
+<p>It’s basic, but it’s small and far from the camera, no more is needed.</p>
+
+<p><img src="/images/kept_in_a_box/key.jpg" alt="Screenshot" /></p>
+
+<h2 id="human">Human</h2>
+
+<p>This is a bit more complex, apart from the head shape (a distorted sphere) everything is made from blended boxes. Here’s how it’s built:</p>
+
+<p><img src="/images/kept_in_a_box/character.gif" alt="Screenshot" /></p>
+
+<p>Not everything is accurate, but it only needed to look right from one angle (or, technically two) in a badly lit room 🤷‍♀️</p>
+
+<p>##No room for 2</p>
+
+<p>With the tight size limits of 4KB and 30s rendering time, I didn’t want the extra code and slower rendering 2 characters required, so I simply mirrored and flipped one:</p>
+
+<p><img src="/images/kept_in_a_box/mirroring.gif" alt="Screenshot" /></p>
+
+<h2 id="hands">Hands</h2>
+
+<p>The characters are holding hands, representing support for eachother. But doing this with a single, mirrored character is both complex (since the mirror would have to somehow be between the hands) and limits the hand positions (I don’t want them shaking hands).</p>
+
+<p>So, I decided to model the hands seperately:</p>
+
+<p><img src="/images/kept_in_a_box/hands.gif" alt="Screenshot" /></p>
+
+<p>Again, they’re built from blended boxes, and the final step is to blend the hands into the character models.</p>
+
+<p><img src="/images/kept_in_a_box/hands_and_arms.jpg" alt="Screenshot" /></p>
+
+<p>I’m not super happy with the modelling there, but it’s difficult and looks ok in the final image I think.</p>
+
+<h2 id="post">Post</h2>
+
+<p>The raw pathtraced output looks like this (live preview quality, the final output is much less noisy):</p>
+
+<p><img src="/images/kept_in_a_box/post1.jpg" alt="Screenshot" /></p>
+
+<p>First I reduce brightness:</p>
+
+<p><img src="/images/kept_in_a_box/post2.jpg" alt="Screenshot" /></p>
+
+<p>Then increase contrast:</p>
+
+<p><img src="/images/kept_in_a_box/post3.jpg" alt="Screenshot" /></p>
+
+<p>I wanted more depth to the shadows, so I increased the ‘contrast bias’. This lets me adjust the midpoint about which contrast is changed, the code is like this:</p>
+
+<p><code class="highlighter-rouge">luma = (luma - contrastBias) * contrast + contrastBias;</code></p>
+
+<p><img src="/images/kept_in_a_box/post4.jpg" alt="Screenshot" /></p>
+
+<p>Next is colour. I wanted richer colours, but without oversaturating. The first step is actually to desaturate:</p>
+
+<p><img src="/images/kept_in_a_box/post5.jpg" alt="Screenshot" /></p>
+
+<p>Then I increase ‘warmth’ by applying a power curve to the chroma:</p>
+
+<p><img src="/images/kept_in_a_box/post6.jpg" alt="Screenshot" /></p>
+
+<p>Just a touch of depth of field…</p>
+
+<p><img src="/images/kept_in_a_box/post7.jpg" alt="Screenshot" /></p>
+
+<p>Finally, I added quite a hard vignette to cut the light beam and give the image better composition:</p>
+
+<p><img src="/images/kept_in_a_box/post8.jpg" alt="Screenshot" /></p>
+
+  </div><a class="u-url" href="/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Alia&#39;s artefacts</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Alia&#39;s artefacts</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.twitter.com/aliatraces"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">aliatraces</span></a></li><li><a href="https://demozoo.org/sceners/113525/"><span class="username">Demozoo: Alia</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
