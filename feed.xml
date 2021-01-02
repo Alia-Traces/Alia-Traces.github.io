@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://alia-traces.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alia-traces.github.io/" rel="alternate" type="text/html" /><updated>2021-01-02T21:51:32+00:00</updated><id>https://alia-traces.github.io/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">Maskless, capeless, free (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/maskless-capeless-free.html" rel="alternate" type="text/html" title="Maskless, capeless, free (4KB Executable Graphics)" /><published>2020-12-31T11:46:20+00:00</published><updated>2020-12-31T11:46:20+00:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/maskless-capeless-free</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/maskless-capeless-free.html">&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/maskless_capeless_free_screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://alia-traces.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alia-traces.github.io/" rel="alternate" type="text/html" /><updated>2021-01-02T22:17:48+00:00</updated><id>https://alia-traces.github.io/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">Maskless, capeless, free (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/maskless-capeless-free.html" rel="alternate" type="text/html" title="Maskless, capeless, free (4KB Executable Graphics)" /><published>2020-12-31T11:46:20+00:00</published><updated>2020-12-31T11:46:20+00:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/maskless-capeless-free</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/maskless-capeless-free.html">&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/maskless_capeless_free_screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
 
@@ -43,7 +43,27 @@
 
 &lt;p&gt;The mask is just part of a sphere, with a few boxes blended in to give it a face shape and some holes punched through for the mouth and eyes. I gave it a bit of thickness to make it look solid.&lt;/p&gt;
 
-&lt;p&gt;The material is a roughened gold. To do this I just use the surface position to generate a random roughness value, so&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Kept in a box (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html" rel="alternate" type="text/html" title="Kept in a box (4KB Executable Graphics)" /><published>2020-12-31T10:46:20+00:00</published><updated>2020-12-31T10:46:20+00:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html">&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/kept_in_a_box_screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/mask.gif&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The material is a roughened gold. It’s the same technique as the floor - I just use the surface position to generate a random roughness value.&lt;/p&gt;
+
+&lt;h2 id=&quot;post&quot;&gt;Post&lt;/h2&gt;
+
+&lt;p&gt;The post setup is similar to last time. Raw output:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/post1.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Increased contrast:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/post2.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This time I wanted warm, rich colours so I increased both saturation and warmth:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/post3.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally depth of field and vignette:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/post4.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Kept in a box (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html" rel="alternate" type="text/html" title="Kept in a box (4KB Executable Graphics)" /><published>2020-12-31T10:46:20+00:00</published><updated>2020-12-31T10:46:20+00:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html">&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/kept_in_a_box_screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
 
