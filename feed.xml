@@ -1,4 +1,156 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://alia-traces.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alia-traces.github.io/" rel="alternate" type="text/html" /><updated>2020-10-04T03:40:21-05:00</updated><id>https://alia-traces.github.io/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">Backlight (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight.html" rel="alternate" type="text/html" title="Backlight (4KB Executable Graphics)" /><published>2020-10-03T05:46:20-05:00</published><updated>2020-10-03T05:46:20-05:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight.html">&lt;p&gt;&lt;img src=&quot;/images/backlight/Screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://alia-traces.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alia-traces.github.io/" rel="alternate" type="text/html" /><updated>2021-01-02T21:51:32+00:00</updated><id>https://alia-traces.github.io/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">Maskless, capeless, free (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/maskless-capeless-free.html" rel="alternate" type="text/html" title="Maskless, capeless, free (4KB Executable Graphics)" /><published>2020-12-31T11:46:20+00:00</published><updated>2020-12-31T11:46:20+00:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/maskless-capeless-free</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/maskless-capeless-free.html">&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/maskless_capeless_free_screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://demozoo.org/graphics/288426/&quot;&gt;Download on Demozoo&lt;/a&gt;
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;a-sequel-to-kept-in-a-box&quot;&gt;A sequel to ‘&lt;a href=&quot;/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html&quot;&gt;Kept in a Box&lt;/a&gt;’&lt;/h3&gt;
+
+&lt;p&gt;‘Kept in a Box’ felt important to make, but it also felt very dark, and maybe not an ideal piece to release at a New Year’s Eve party. So I wanted to do a second piece that was lighter, and decided to make a sequel.&lt;/p&gt;
+
+&lt;p&gt;Where Kept in a Box was about staying in the closet voluntarily for the protection of others, this is about finding a way out of that situation.&lt;/p&gt;
+
+&lt;p&gt;The hero or heroine is no longer needed, drops their mask and cloak, takes the key and walks out through the open door into the light of freedom. The mask and cape represent both the heroic nature of the imprisonment, and the disguise they no longer need now they can show the world their true self.&lt;/p&gt;
+
+&lt;h3 id=&quot;background&quot;&gt;Background&lt;/h3&gt;
+
+&lt;p&gt;The scene setup is the same as Kept in a Box - a light outside the scene, low this time to cast a beam of light through the door and with a bright sky to provide more ambient light. There’s no room again, just one wall with a rectangle removed to form the doorway and a box to form the door.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/door.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can also see the floor ‘texture’ here - I’m setting the material roughness randomly. It’s pixellated, but that doesn’t matter because it’s covered.&lt;/p&gt;
+
+&lt;h2 id=&quot;cloth&quot;&gt;Cloth&lt;/h2&gt;
+
+&lt;p&gt;The cloth is an SDF. The material is matt red, but with a slight reflective fresnel layer to give it a little sheen. It’s a flat disk:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/cloth1.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To which I just added some sine waves together and added them to the height, it’s cheap and nasty and looks like a wave pool here but looks like rumpled cloth in the end 🤷‍♀️&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/cloth2.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For fine detail I just added another couple of sine waves at right angles to make it look a bit like a cloth texture.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/cloth3.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The last step is to add some distortion parallel to the floor so it doesn’t look obviously round.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/cloth4.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;mask&quot;&gt;Mask&lt;/h2&gt;
+
+&lt;p&gt;The mask is just part of a sphere, with a few boxes blended in to give it a face shape and some holes punched through for the mouth and eyes. I gave it a bit of thickness to make it look solid.&lt;/p&gt;
+
+&lt;p&gt;The material is a roughened gold. To do this I just use the surface position to generate a random roughness value, so&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Kept in a box (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html" rel="alternate" type="text/html" title="Kept in a box (4KB Executable Graphics)" /><published>2020-12-31T10:46:20+00:00</published><updated>2020-12-31T10:46:20+00:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html">&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/kept_in_a_box_screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://demozoo.org/graphics/288426/&quot;&gt;Download on Demozoo&lt;/a&gt;
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;meaning&quot;&gt;Meaning&lt;/h3&gt;
+
+&lt;p&gt;This was inspired by a particular group of people: transgender women who either accept or figure out their true identity later in life, after settling and starting a family, and choose to stay in the closet either to protect that family or to keep it together. They know how to leave their prison, they hold the key, but they choose to repress.&lt;/p&gt;
+
+&lt;p&gt;Identity needs an outlet. Unable to live as themselves offline, social media provides this outlet for many - a space to present as themselves, find others, and support each other.&lt;/p&gt;
+
+&lt;p&gt;However, I don’t intend this piece to be about this group in particular and avoided visual hints about who the characters may be. There are many others in this situation, for many reasons. This is dedicated to you all.&lt;/p&gt;
+
+&lt;h3 id=&quot;lighting&quot;&gt;Lighting&lt;/h3&gt;
+
+&lt;p&gt;Since the focus of the piece is about support as well as being in a dark place, I wanted to represent that and chiaroscuro (strongly contrasting light and dark) felt perfect.&lt;/p&gt;
+
+&lt;p&gt;I wanted the scene to be very dark, with a beam of light in the centre falling on the key and the hands, with everything else lit indirectly. Since the subject is a form of imprisonment, I went with light shining through a high, barred window.&lt;/p&gt;
+
+&lt;p&gt;To do this, I put a light far away from the scene:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/lighting1.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then, I added a plane between the key and the light. I used a simple 2d distance function to cut a few rectangles out to let the light through.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/lighting2.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There isn’t actually a room at all - just the floor and one wall.&lt;/p&gt;
+
+&lt;p&gt;I use biased rendering here, meaning I shoot rays out of the camera into the scene, and each time the ray intersects a surface, I cast a ray towards the light rather than just hoping the ray will randomly hit it.&lt;/p&gt;
+
+&lt;p&gt;Since the light is far away and mostly blocked by a wall, rendering time would be extremely long otherwise.&lt;/p&gt;
+
+&lt;h3 id=&quot;modeling&quot;&gt;Modeling&lt;/h3&gt;
+
+&lt;p&gt;There are 3 models here, all made with SDFs (signed distance functions). A key, one human, and a pair of hands.&lt;/p&gt;
+
+&lt;h2 id=&quot;key&quot;&gt;Key&lt;/h2&gt;
+
+&lt;p&gt;It’s basic, but it’s small and far from the camera, no more is needed.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/key.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;human&quot;&gt;Human&lt;/h2&gt;
+
+&lt;p&gt;This is a bit more complex, apart from the head shape (a distorted sphere) everything is made from blended boxes. Here’s how it’s built:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/character.gif&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Not everything is accurate, but it only needed to look right from one angle (or, technically two) in a badly lit room 🤷‍♀️&lt;/p&gt;
+
+&lt;p&gt;##No room for 2&lt;/p&gt;
+
+&lt;p&gt;With the tight size limits of 4KB and 30s rendering time, I didn’t want the extra code and slower rendering 2 characters required, so I simply mirrored and flipped one:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/mirroring.gif&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;hands&quot;&gt;Hands&lt;/h2&gt;
+
+&lt;p&gt;The characters are holding hands, representing support for eachother. But doing this with a single, mirrored character is both complex (since the mirror would have to somehow be between the hands) and limits the hand positions (I don’t want them shaking hands).&lt;/p&gt;
+
+&lt;p&gt;So, I decided to model the hands seperately:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/hands.gif&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Again, they’re built from blended boxes, and the final step is to blend the hands into the character models.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/hands_and_arms.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I’m not super happy with the modelling there, but it’s difficult and looks ok in the final image I think.&lt;/p&gt;
+
+&lt;h2 id=&quot;post&quot;&gt;Post&lt;/h2&gt;
+
+&lt;p&gt;The raw pathtraced output looks like this (live preview quality, the final output is much less noisy):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post1.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;First I reduce brightness:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post2.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then increase contrast:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post3.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I wanted more depth to the shadows, so I increased the ‘contrast bias’. This lets me adjust the midpoint about which contrast is changed, the code is like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;luma = (luma - contrastBias) * contrast + contrastBias;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post4.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next is colour. I wanted richer colours, but without oversaturating. The first step is actually to desaturate:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post5.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then I increase ‘warmth’ by applying a power curve to the chroma:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post6.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Just a touch of depth of field…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post7.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally, I added quite a hard vignette to cut the light beam and give the image better composition:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post8.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Backlight (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight.html" rel="alternate" type="text/html" title="Backlight (4KB Executable Graphics)" /><published>2020-10-03T11:46:20+01:00</published><updated>2020-10-03T11:46:20+01:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight.html">&lt;p&gt;&lt;img src=&quot;/images/backlight/Screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Released at Inercia 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
 
@@ -41,7 +193,7 @@
 
 &lt;p&gt;That’s it! Just one tiny line of code shifts the view down while preserving the composition. Exactly like taking a bigger view with a wider lens and cropping, only easier.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/backlight/bl-4.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Inercia 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Organising your workflow with tab groups in Xcode 12</title><link href="https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs.html" rel="alternate" type="text/html" title="Organising your workflow with tab groups in Xcode 12" /><published>2020-08-29T00:00:00-05:00</published><updated>2020-08-29T00:00:00-05:00</updated><id>https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs</id><content type="html" xml:base="https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs.html">&lt;p&gt;&lt;img src=&quot;/images/xcode_tabs/hierarchy.png&quot; alt=&quot;Two levels of tab bar for tab grouping&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/backlight/bl-4.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Inercia 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Organising your workflow with tab groups in Xcode 12</title><link href="https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs.html" rel="alternate" type="text/html" title="Organising your workflow with tab groups in Xcode 12" /><published>2020-08-29T06:00:00+01:00</published><updated>2020-08-29T06:00:00+01:00</updated><id>https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs</id><content type="html" xml:base="https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs.html">&lt;p&gt;&lt;img src=&quot;/images/xcode_tabs/hierarchy.png&quot; alt=&quot;Two levels of tab bar for tab grouping&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Xcode 12 has an all new tab system. Here’s how I use it to organise my workflow!
 &lt;!--more--&gt;&lt;/p&gt;
@@ -113,7 +265,7 @@
 
 &lt;p&gt;&lt;img src=&quot;/images/xcode_tabs/debug_behaviours.png&quot; alt=&quot;Configuring debug behaviour&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;You can set this up for failed tests, frame capture etc. when you want it to switch to the Debug tab too.&lt;/p&gt;</content><author><name></name></author><category term="xcode" /><category term="ios" /><category term="mac" /><category term="tools" /><summary type="html">Xcode 12 has an all new tab system. Here’s how I use it to organise my workflow!</summary></entry><entry><title type="html">Reconstruction (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html" rel="alternate" type="text/html" title="Reconstruction (4KB Executable Graphics)" /><published>2020-07-24T05:46:20-05:00</published><updated>2020-07-24T05:46:20-05:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html">&lt;p&gt;&lt;img src=&quot;/images/reconstruction/Screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;You can set this up for failed tests, frame capture etc. when you want it to switch to the Debug tab too.&lt;/p&gt;</content><author><name></name></author><category term="xcode" /><category term="ios" /><category term="mac" /><category term="tools" /><summary type="html">Xcode 12 has an all new tab system. Here’s how I use it to organise my workflow!</summary></entry><entry><title type="html">Reconstruction (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html" rel="alternate" type="text/html" title="Reconstruction (4KB Executable Graphics)" /><published>2020-07-24T11:46:20+01:00</published><updated>2020-07-24T11:46:20+01:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html">&lt;p&gt;&lt;img src=&quot;/images/reconstruction/Screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Released at FieldFX 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
 
@@ -189,7 +341,7 @@
 	&lt;source type=&quot;video/mp4&quot; src=&quot;/images/reconstruction/light_bounces.mp4&quot; /&gt;
 	&lt;source type=&quot;video/webm&quot; src=&quot;/images/reconstruction/eclipse.webm&quot; /&gt;
 	&lt;/video&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at FieldFX 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">How to use Metal frame capture outside of Xcode</title><link href="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" rel="alternate" type="text/html" title="How to use Metal frame capture outside of Xcode" /><published>2020-07-18T05:46:20-05:00</published><updated>2020-07-18T05:46:20-05:00</updated><id>https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode</id><content type="html" xml:base="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html">&lt;p&gt;Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview.&lt;/p&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at FieldFX 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">How to use Metal frame capture outside of Xcode</title><link href="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" rel="alternate" type="text/html" title="How to use Metal frame capture outside of Xcode" /><published>2020-07-18T11:46:20+01:00</published><updated>2020-07-18T11:46:20+01:00</updated><id>https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode</id><content type="html" xml:base="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html">&lt;p&gt;Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/MetalToyUI.jpg&quot; alt=&quot;MetalToy's user interface&quot; /&gt;&lt;br /&gt;&lt;em&gt;MetalToy looks like this&lt;/em&gt;
 &lt;!--more--&gt;&lt;/p&gt;
@@ -271,7 +423,7 @@
 	&lt;span class=&quot;kt&quot;&gt;DispatchQueue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;XcodeOpen&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;qos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;utility&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;concurrent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;autoreleaseFrequency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inherit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
 			&lt;span class=&quot;n&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;executeAndReturnError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><category term="metal" /><category term="tools" /><category term="xcode" /><summary type="html">Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview. MetalToy looks like this</summary></entry><entry><title type="html">End of an Era (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/11/end-of-an-era.html" rel="alternate" type="text/html" title="End of an Era (4KB Executable Graphics)" /><published>2020-07-11T05:46:20-05:00</published><updated>2020-07-11T05:46:20-05:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/11/end-of-an-era</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/11/end-of-an-era.html">&lt;p&gt;&lt;img src=&quot;/images/end_of_an_era/Screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><category term="metal" /><category term="tools" /><category term="xcode" /><summary type="html">Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview. MetalToy looks like this</summary></entry><entry><title type="html">End of an Era (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/11/end-of-an-era.html" rel="alternate" type="text/html" title="End of an Era (4KB Executable Graphics)" /><published>2020-07-11T11:46:20+01:00</published><updated>2020-07-11T11:46:20+01:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/11/end-of-an-era</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/11/end-of-an-era.html">&lt;p&gt;&lt;img src=&quot;/images/end_of_an_era/Screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Released at Solskogen 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
 
@@ -314,7 +466,7 @@
 
 &lt;p&gt;&lt;img src=&quot;/images/end_of_an_era/5.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;How? I built the leaf pile in layers, bottom to top. For each layer, I take the shape of the leaf and use it to clip any geometry above it. This means if there’s a lower leaf intersecting the current one, the part that intersects gets removed. Cheap, hacky, but looks ok 🙃&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Solskogen 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Cloth!!! (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/06/20/cloth.html" rel="alternate" type="text/html" title="Cloth!!! (4KB Executable Graphics)" /><published>2020-06-20T05:46:20-05:00</published><updated>2020-06-20T05:46:20-05:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/06/20/cloth</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/06/20/cloth.html">&lt;p&gt;&lt;img src=&quot;/images/cloth/screenshot.jpg&quot; alt=&quot;Undefined Symbol screenshot&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;How? I built the leaf pile in layers, bottom to top. For each layer, I take the shape of the leaf and use it to clip any geometry above it. This means if there’s a lower leaf intersecting the current one, the part that intersects gets removed. Cheap, hacky, but looks ok 🙃&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Solskogen 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Cloth!!! (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/06/20/cloth.html" rel="alternate" type="text/html" title="Cloth!!! (4KB Executable Graphics)" /><published>2020-06-20T11:46:20+01:00</published><updated>2020-06-20T11:46:20+01:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/06/20/cloth</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/06/20/cloth.html">&lt;p&gt;&lt;img src=&quot;/images/cloth/screenshot.jpg&quot; alt=&quot;Undefined Symbol screenshot&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Released at Nova 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data) with help from Lia-Sae.&lt;/p&gt;
 
@@ -377,7 +529,7 @@
 
 &lt;h2 id=&quot;the-downside&quot;&gt;The downside&lt;/h2&gt;
 
-&lt;p&gt;Of course there’s a catch: rendering geometry this fine is &lt;em&gt;expensive&lt;/em&gt;. I optimised this to hell, and it’s still very slow - especially when many light bounces are needed. I think in the end the release version only manages ~12 samples per pixel on my GPU (a Vega 56), which is why it’s a bit noisy…&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Nova 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data) with help from Lia-Sae. Download on Demozoo</summary></entry><entry><title type="html">Ice Core (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/05/22/ice-core.html" rel="alternate" type="text/html" title="Ice Core (4KB Executable Graphics)" /><published>2020-05-22T05:46:20-05:00</published><updated>2020-05-22T05:46:20-05:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/05/22/ice-core</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/05/22/ice-core.html">&lt;p&gt;&lt;img src=&quot;/images/ice_core/ice_core_screenshot.jpg&quot; alt=&quot;Ice Core screenshot&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Of course there’s a catch: rendering geometry this fine is &lt;em&gt;expensive&lt;/em&gt;. I optimised this to hell, and it’s still very slow - especially when many light bounces are needed. I think in the end the release version only manages ~12 samples per pixel on my GPU (a Vega 56), which is why it’s a bit noisy…&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Nova 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data) with help from Lia-Sae. Download on Demozoo</summary></entry><entry><title type="html">Ice Core (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/05/22/ice-core.html" rel="alternate" type="text/html" title="Ice Core (4KB Executable Graphics)" /><published>2020-05-22T11:46:20+01:00</published><updated>2020-05-22T11:46:20+01:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/05/22/ice-core</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/05/22/ice-core.html">&lt;p&gt;&lt;img src=&quot;/images/ice_core/ice_core_screenshot.jpg&quot; alt=&quot;Ice Core screenshot&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Released at Outline 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
 
@@ -396,7 +548,7 @@
 
 &lt;p&gt;There are also bubbles and particles within the ice. The geometry is an SDF, and the one nice trick I came up with here is the dark particles - I used &lt;code class=&quot;highlighter-rouge&quot;&gt;p = fract(p);&lt;/code&gt; to repeat space, then placed a sphere at a random position in each cell.&lt;/p&gt;
 
-&lt;p&gt;Normally it’s important to keep the sphere inside the cell to avoid artefacts, but in this case such artefacts produce dark spots in the ice - which look like floating particles ;)&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Outline 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Undefined Symbol (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/04/12/undefined-symbol.html" rel="alternate" type="text/html" title="Undefined Symbol (4KB Executable Graphics)" /><published>2020-04-12T05:46:20-05:00</published><updated>2020-04-12T05:46:20-05:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/04/12/undefined-symbol</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/04/12/undefined-symbol.html">&lt;p&gt;&lt;img src=&quot;/images/undefined_symbol/undefined_symbol_screenshot.jpg&quot; alt=&quot;Undefined Symbol screenshot&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Normally it’s important to keep the sphere inside the cell to avoid artefacts, but in this case such artefacts produce dark spots in the ice - which look like floating particles ;)&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Outline 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Undefined Symbol (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/04/12/undefined-symbol.html" rel="alternate" type="text/html" title="Undefined Symbol (4KB Executable Graphics)" /><published>2020-04-12T11:46:20+01:00</published><updated>2020-04-12T11:46:20+01:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/04/12/undefined-symbol</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/04/12/undefined-symbol.html">&lt;p&gt;&lt;img src=&quot;/images/undefined_symbol/undefined_symbol_screenshot.jpg&quot; alt=&quot;Undefined Symbol screenshot&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Released at Revision 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
 
