@@ -1,601 +1,650 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://alia-traces.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alia-traces.github.io/" rel="alternate" type="text/html" /><updated>2021-01-02T22:17:48+00:00</updated><id>https://alia-traces.github.io/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">Maskless, capeless, free (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/maskless-capeless-free.html" rel="alternate" type="text/html" title="Maskless, capeless, free (4KB Executable Graphics)" /><published>2020-12-31T11:46:20+00:00</published><updated>2020-12-31T11:46:20+00:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/maskless-capeless-free</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/maskless-capeless-free.html">&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/maskless_capeless_free_screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-09T15:49:58+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Alia’s artefacts</title><subtitle>Blessedly cursed code: realtime rendering, path tracing and demoscene. Maybe other stuff, who knows.</subtitle><entry><title type="html">Green Shoots (Executable Graphics)</title><link href="http://localhost:4000/demoscene/metal/pathtracing/2021/12/31/green-shoots.html" rel="alternate" type="text/html" title="Green Shoots (Executable Graphics)" /><published>2021-12-31T11:46:20+00:00</published><updated>2021-12-31T11:46:20+00:00</updated><id>http://localhost:4000/demoscene/metal/pathtracing/2021/12/31/green-shoots</id><content type="html" xml:base="http://localhost:4000/demoscene/metal/pathtracing/2021/12/31/green-shoots.html"><![CDATA[<p><img src="/images/green_shoots/Alia_-_Green_shoots_screenshot.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
+<p>Released at Hogmanay 2021, Executable Graphics (a single compute shader generates this image, with no external data). Released as an image only, since it takes multiple hours to render.
+<!--more--></p>
 
-&lt;p&gt;&lt;a href=&quot;https://demozoo.org/graphics/288426/&quot;&gt;Download on Demozoo&lt;/a&gt;
-&lt;!--more--&gt;&lt;/p&gt;
+<h2 id="background">Background</h2>
 
-&lt;h3 id=&quot;a-sequel-to-kept-in-a-box&quot;&gt;A sequel to ‘&lt;a href=&quot;/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html&quot;&gt;Kept in a Box&lt;/a&gt;’&lt;/h3&gt;
+<p>New Year’s Eve was approaching, and with the Omicron covid variant on the rise many of us didn’t want to risk partying. Lucily, reality404, Aldroid and Crypt organised an online streaming event called Silvester. This was an online demoparty with competitions, so I decided to make something but as I didn’t have much time executable graphics made sense.</p>
 
-&lt;p&gt;‘Kept in a Box’ felt important to make, but it also felt very dark, and maybe not an ideal piece to release at a New Year’s Eve party. So I wanted to do a second piece that was lighter, and decided to make a sequel.&lt;/p&gt;
+<p>With the backdrop of 2 years of pandemic and lockdowns, having not seen friends in far too long and spending another New Years at home I wanted to do something with a positive message. And with vaccination it was looking hopeful that maybe in 2022 things might start getting back to normal… could this be the first green shoots of recovery?</p>
 
-&lt;p&gt;Where Kept in a Box was about staying in the closet voluntarily for the protection of others, this is about finding a way out of that situation.&lt;/p&gt;
+<h2 id="brute-force-rendering-of-micro-geometry">Brute force rendering of micro-geometry</h2>
 
-&lt;p&gt;The hero or heroine is no longer needed, drops their mask and cloak, takes the key and walks out through the open door into the light of freedom. The mask and cape represent both the heroic nature of the imprisonment, and the disguise they no longer need now they can show the world their true self.&lt;/p&gt;
+<p>I’ve been interested in brute force rendering complex materials for a while - <a href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/06/20/cloth.html">see ‘Cloth’ for example - brute force rendering of cloth at fibre level</a>. I’d also been thinking about ‘microfacet’ rendering, which is where you simulate the way light bounces around in the microscopic lumps and cracks that exist in many surfaces.</p>
 
-&lt;h3 id=&quot;background&quot;&gt;Background&lt;/h3&gt;
+<p>Normally microfacets are approximated, because they’re too small to see. But what if…</p>
 
-&lt;p&gt;The scene setup is the same as Kept in a Box - a light outside the scene, low this time to cast a beam of light through the door and with a bright sky to provide more ambient light. There’s no room again, just one wall with a rectangle removed to form the doorway and a box to form the door.&lt;/p&gt;
+<p>So I built a quick test setup using SDF geometry and raymarching (plus path tracing) that fills a volume with packed reflective spheres:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/door.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/green_shoots/Microfacets.png" alt="Microfacets from real geometry" /></p>
 
-&lt;p&gt;You can also see the floor ‘texture’ here - I’m setting the material roughness randomly. It’s pixellated, but that doesn’t matter because it’s covered.&lt;/p&gt;
+<p>It works! Despite there only being reflective surfaces, once the spheres are too small to see the result is effectively a matte material.</p>
 
-&lt;h2 id=&quot;cloth&quot;&gt;Cloth&lt;/h2&gt;
+<p>Comparing to a standard matte material, the differences are quiet obvious:</p>
 
-&lt;p&gt;The cloth is an SDF. The material is matt red, but with a slight reflective fresnel layer to give it a little sheen. It’s a flat disk:&lt;/p&gt;
+<p><img src="/images/green_shoots/Microfacets_vs_matte.jpg" alt="Microfacets compared to matte material" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/cloth1.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>It’s darker because as the light bounces around inside the ‘cracks’ more energy is absorbed. The colour is richer too, because each bounce reflects orange light and absorbs other colours, making it more orange. And there’s a fresnel effect - rays that glance the surface are more likely to be reflected out and rays that hit head-on are more likely to fall into a crack.</p>
 
-&lt;p&gt;To which I just added some sine waves together and added them to the height, it’s cheap and nasty and looks like a wave pool here but looks like rumpled cloth in the end 🤷‍♀️&lt;/p&gt;
+<h2 id="snow">Snow</h2>
 
-&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/cloth2.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>The scene setup is the same as Kept in a Box - a light outside the scene, low this time to cast a beam of light through the door and with a bright sky to provide more ambient light. There’s no room again, just one wall with a rectangle removed to form the doorway and a box to form the door.</p>
 
-&lt;p&gt;For fine detail I just added another couple of sine waves at right angles to make it look a bit like a cloth texture.&lt;/p&gt;
+<p><img src="/images/maskless_capeless_free/door.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/cloth3.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>You can also see the floor ‘texture’ here - I’m setting the material roughness randomly. It’s pixellated, but that doesn’t matter because it’s covered.</p>
 
-&lt;p&gt;The last step is to add some distortion parallel to the floor so it doesn’t look obviously round.&lt;/p&gt;
+<h2 id="cloth">Cloth</h2>
 
-&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/cloth4.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>The cloth is an SDF. The material is matt red, but with a slight reflective fresnel layer to give it a little sheen. It’s a flat disk:</p>
 
-&lt;h2 id=&quot;mask&quot;&gt;Mask&lt;/h2&gt;
+<p><img src="/images/maskless_capeless_free/cloth1.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;The mask is just part of a sphere, with a few boxes blended in to give it a face shape and some holes punched through for the mouth and eyes. I gave it a bit of thickness to make it look solid.&lt;/p&gt;
+<p>To which I just added some sine waves together and added them to the height, it’s cheap and nasty and looks like a wave pool here but looks like rumpled cloth in the end 🤷‍♀️</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/mask.gif&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/maskless_capeless_free/cloth2.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;The material is a roughened gold. It’s the same technique as the floor - I just use the surface position to generate a random roughness value.&lt;/p&gt;
+<p>For fine detail I just added another couple of sine waves at right angles to make it look a bit like a cloth texture.</p>
 
-&lt;h2 id=&quot;post&quot;&gt;Post&lt;/h2&gt;
+<p><img src="/images/maskless_capeless_free/cloth3.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;The post setup is similar to last time. Raw output:&lt;/p&gt;
+<p>The last step is to add some distortion parallel to the floor so it doesn’t look obviously round.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/post1.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/maskless_capeless_free/cloth4.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;Increased contrast:&lt;/p&gt;
+<h2 id="mask">Mask</h2>
 
-&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/post2.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>The mask is just part of a sphere, with a few boxes blended in to give it a face shape and some holes punched through for the mouth and eyes. I gave it a bit of thickness to make it look solid.</p>
 
-&lt;p&gt;This time I wanted warm, rich colours so I increased both saturation and warmth:&lt;/p&gt;
+<p><img src="/images/maskless_capeless_free/mask.gif" alt="Screenshot" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/post3.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>The material is a roughened gold. It’s the same technique as the floor - I just use the surface position to generate a random roughness value.</p>
 
-&lt;p&gt;Finally depth of field and vignette:&lt;/p&gt;
+<h2 id="post">Post</h2>
 
-&lt;p&gt;&lt;img src=&quot;/images/maskless_capeless_free/post4.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Kept in a box (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html" rel="alternate" type="text/html" title="Kept in a box (4KB Executable Graphics)" /><published>2020-12-31T10:46:20+00:00</published><updated>2020-12-31T10:46:20+00:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html">&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/kept_in_a_box_screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>The post setup is similar to last time. Raw output:</p>
 
-&lt;p&gt;Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
+<p><img src="/images/maskless_capeless_free/post1.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;&lt;a href=&quot;https://demozoo.org/graphics/288426/&quot;&gt;Download on Demozoo&lt;/a&gt;
-&lt;!--more--&gt;&lt;/p&gt;
+<p>Increased contrast:</p>
 
-&lt;h3 id=&quot;meaning&quot;&gt;Meaning&lt;/h3&gt;
+<p><img src="/images/maskless_capeless_free/post2.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;This was inspired by a particular group of people: transgender women who either accept or figure out their true identity later in life, after settling and starting a family, and choose to stay in the closet either to protect that family or to keep it together. They know how to leave their prison, they hold the key, but they choose to repress.&lt;/p&gt;
+<p>This time I wanted warm, rich colours so I increased both saturation and warmth:</p>
 
-&lt;p&gt;Identity needs an outlet. Unable to live as themselves offline, social media provides this outlet for many - a space to present as themselves, find others, and support each other.&lt;/p&gt;
+<p><img src="/images/maskless_capeless_free/post3.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;However, I don’t intend this piece to be about this group in particular and avoided visual hints about who the characters may be. There are many others in this situation, for many reasons. This is dedicated to you all.&lt;/p&gt;
+<p>Finally depth of field and vignette:</p>
 
-&lt;h3 id=&quot;lighting&quot;&gt;Lighting&lt;/h3&gt;
+<p><img src="/images/maskless_capeless_free/post4.jpg" alt="Screenshot" /></p>]]></content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html"><![CDATA[Released at Hogmanay 2021, Executable Graphics (a single compute shader generates this image, with no external data). Released as an image only, since it takes multiple hours to render.]]></summary></entry><entry><title type="html">Maskless, capeless, free (4KB Executable Graphics)</title><link href="http://localhost:4000/demoscene/metal/pathtracing/2020/12/31/maskless-capeless-free.html" rel="alternate" type="text/html" title="Maskless, capeless, free (4KB Executable Graphics)" /><published>2020-12-31T11:46:20+00:00</published><updated>2020-12-31T11:46:20+00:00</updated><id>http://localhost:4000/demoscene/metal/pathtracing/2020/12/31/maskless-capeless-free</id><content type="html" xml:base="http://localhost:4000/demoscene/metal/pathtracing/2020/12/31/maskless-capeless-free.html"><![CDATA[<p><img src="/images/maskless_capeless_free/maskless_capeless_free_screenshot.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;Since the focus of the piece is about support as well as being in a dark place, I wanted to represent that and chiaroscuro (strongly contrasting light and dark) felt perfect.&lt;/p&gt;
+<p>Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).</p>
 
-&lt;p&gt;I wanted the scene to be very dark, with a beam of light in the centre falling on the key and the hands, with everything else lit indirectly. Since the subject is a form of imprisonment, I went with light shining through a high, barred window.&lt;/p&gt;
+<p><a href="https://demozoo.org/graphics/288426/">Download on Demozoo</a>
+<!--more--></p>
 
-&lt;p&gt;To do this, I put a light far away from the scene:&lt;/p&gt;
+<h3 id="a-sequel-to-kept-in-a-box">A sequel to ‘<a href="/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html">Kept in a Box</a>’</h3>
 
-&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/lighting1.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>‘Kept in a Box’ felt important to make, but it also felt very dark, and maybe not an ideal piece to release at a New Year’s Eve party. So I wanted to do a second piece that was lighter, and decided to make a sequel.</p>
 
-&lt;p&gt;Then, I added a plane between the key and the light. I used a simple 2d distance function to cut a few rectangles out to let the light through.&lt;/p&gt;
+<p>Where Kept in a Box was about staying in the closet voluntarily for the protection of others, this is about finding a way out of that situation.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/lighting2.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>The hero or heroine is no longer needed, drops their mask and cloak, takes the key and walks out through the open door into the light of freedom. The mask and cape represent both the heroic nature of the imprisonment, and the disguise they no longer need now they can show the world their true self.</p>
 
-&lt;p&gt;There isn’t actually a room at all - just the floor and one wall.&lt;/p&gt;
+<h3 id="background">Background</h3>
 
-&lt;p&gt;I use biased rendering here, meaning I shoot rays out of the camera into the scene, and each time the ray intersects a surface, I cast a ray towards the light rather than just hoping the ray will randomly hit it.&lt;/p&gt;
+<p>The scene setup is the same as Kept in a Box - a light outside the scene, low this time to cast a beam of light through the door and with a bright sky to provide more ambient light. There’s no room again, just one wall with a rectangle removed to form the doorway and a box to form the door.</p>
 
-&lt;p&gt;Since the light is far away and mostly blocked by a wall, rendering time would be extremely long otherwise.&lt;/p&gt;
+<p><img src="/images/maskless_capeless_free/door.jpg" alt="Screenshot" /></p>
 
-&lt;h3 id=&quot;modeling&quot;&gt;Modeling&lt;/h3&gt;
+<p>You can also see the floor ‘texture’ here - I’m setting the material roughness randomly. It’s pixellated, but that doesn’t matter because it’s covered.</p>
 
-&lt;p&gt;There are 3 models here, all made with SDFs (signed distance functions). A key, one human, and a pair of hands.&lt;/p&gt;
+<h2 id="cloth">Cloth</h2>
 
-&lt;h2 id=&quot;key&quot;&gt;Key&lt;/h2&gt;
+<p>The cloth is an SDF. The material is matt red, but with a slight reflective fresnel layer to give it a little sheen. It’s a flat disk:</p>
 
-&lt;p&gt;It’s basic, but it’s small and far from the camera, no more is needed.&lt;/p&gt;
+<p><img src="/images/maskless_capeless_free/cloth1.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/key.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>To which I just added some sine waves together and added them to the height, it’s cheap and nasty and looks like a wave pool here but looks like rumpled cloth in the end 🤷‍♀️</p>
 
-&lt;h2 id=&quot;human&quot;&gt;Human&lt;/h2&gt;
+<p><img src="/images/maskless_capeless_free/cloth2.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;This is a bit more complex, apart from the head shape (a distorted sphere) everything is made from blended boxes. Here’s how it’s built:&lt;/p&gt;
+<p>For fine detail I just added another couple of sine waves at right angles to make it look a bit like a cloth texture.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/character.gif&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/maskless_capeless_free/cloth3.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;Not everything is accurate, but it only needed to look right from one angle (or, technically two) in a badly lit room 🤷‍♀️&lt;/p&gt;
+<p>The last step is to add some distortion parallel to the floor so it doesn’t look obviously round.</p>
 
-&lt;p&gt;##No room for 2&lt;/p&gt;
+<p><img src="/images/maskless_capeless_free/cloth4.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;With the tight size limits of 4KB and 30s rendering time, I didn’t want the extra code and slower rendering 2 characters required, so I simply mirrored and flipped one:&lt;/p&gt;
+<h2 id="mask">Mask</h2>
 
-&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/mirroring.gif&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>The mask is just part of a sphere, with a few boxes blended in to give it a face shape and some holes punched through for the mouth and eyes. I gave it a bit of thickness to make it look solid.</p>
 
-&lt;h2 id=&quot;hands&quot;&gt;Hands&lt;/h2&gt;
+<p><img src="/images/maskless_capeless_free/mask.gif" alt="Screenshot" /></p>
 
-&lt;p&gt;The characters are holding hands, representing support for eachother. But doing this with a single, mirrored character is both complex (since the mirror would have to somehow be between the hands) and limits the hand positions (I don’t want them shaking hands).&lt;/p&gt;
+<p>The material is a roughened gold. It’s the same technique as the floor - I just use the surface position to generate a random roughness value.</p>
 
-&lt;p&gt;So, I decided to model the hands seperately:&lt;/p&gt;
+<h2 id="post">Post</h2>
 
-&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/hands.gif&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>The post setup is similar to last time. Raw output:</p>
 
-&lt;p&gt;Again, they’re built from blended boxes, and the final step is to blend the hands into the character models.&lt;/p&gt;
+<p><img src="/images/maskless_capeless_free/post1.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/hands_and_arms.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>Increased contrast:</p>
 
-&lt;p&gt;I’m not super happy with the modelling there, but it’s difficult and looks ok in the final image I think.&lt;/p&gt;
+<p><img src="/images/maskless_capeless_free/post2.jpg" alt="Screenshot" /></p>
 
-&lt;h2 id=&quot;post&quot;&gt;Post&lt;/h2&gt;
+<p>This time I wanted warm, rich colours so I increased both saturation and warmth:</p>
 
-&lt;p&gt;The raw pathtraced output looks like this (live preview quality, the final output is much less noisy):&lt;/p&gt;
+<p><img src="/images/maskless_capeless_free/post3.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post1.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>Finally depth of field and vignette:</p>
 
-&lt;p&gt;First I reduce brightness:&lt;/p&gt;
+<p><img src="/images/maskless_capeless_free/post4.jpg" alt="Screenshot" /></p>]]></content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html"><![CDATA[Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo]]></summary></entry><entry><title type="html">Kept in a box (4KB Executable Graphics)</title><link href="http://localhost:4000/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html" rel="alternate" type="text/html" title="Kept in a box (4KB Executable Graphics)" /><published>2020-12-31T10:46:20+00:00</published><updated>2020-12-31T10:46:20+00:00</updated><id>http://localhost:4000/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box</id><content type="html" xml:base="http://localhost:4000/demoscene/metal/pathtracing/2020/12/31/kept-in-a-box.html"><![CDATA[<p><img src="/images/kept_in_a_box/kept_in_a_box_screenshot.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post2.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).</p>
 
-&lt;p&gt;Then increase contrast:&lt;/p&gt;
+<p><a href="https://demozoo.org/graphics/288426/">Download on Demozoo</a>
+<!--more--></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post3.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<h3 id="meaning">Meaning</h3>
 
-&lt;p&gt;I wanted more depth to the shadows, so I increased the ‘contrast bias’. This lets me adjust the midpoint about which contrast is changed, the code is like this:&lt;/p&gt;
+<p>This was inspired by a particular group of people: transgender women who either accept or figure out their true identity later in life, after settling and starting a family, and choose to stay in the closet either to protect that family or to keep it together. They know how to leave their prison, they hold the key, but they choose to repress.</p>
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;luma = (luma - contrastBias) * contrast + contrastBias;&lt;/code&gt;&lt;/p&gt;
+<p>Identity needs an outlet. Unable to live as themselves offline, social media provides this outlet for many - a space to present as themselves, find others, and support each other.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post4.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>However, I don’t intend this piece to be about this group in particular and avoided visual hints about who the characters may be. There are many others in this situation, for many reasons. This is dedicated to you all.</p>
 
-&lt;p&gt;Next is colour. I wanted richer colours, but without oversaturating. The first step is actually to desaturate:&lt;/p&gt;
+<h3 id="lighting">Lighting</h3>
 
-&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post5.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>Since the focus of the piece is about support as well as being in a dark place, I wanted to represent that and chiaroscuro (strongly contrasting light and dark) felt perfect.</p>
 
-&lt;p&gt;Then I increase ‘warmth’ by applying a power curve to the chroma:&lt;/p&gt;
+<p>I wanted the scene to be very dark, with a beam of light in the centre falling on the key and the hands, with everything else lit indirectly. Since the subject is a form of imprisonment, I went with light shining through a high, barred window.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post6.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>To do this, I put a light far away from the scene:</p>
 
-&lt;p&gt;Just a touch of depth of field…&lt;/p&gt;
+<p><img src="/images/kept_in_a_box/lighting1.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post7.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>Then, I added a plane between the key and the light. I used a simple 2d distance function to cut a few rectangles out to let the light through.</p>
 
-&lt;p&gt;Finally, I added quite a hard vignette to cut the light beam and give the image better composition:&lt;/p&gt;
+<p><img src="/images/kept_in_a_box/lighting2.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/kept_in_a_box/post8.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Backlight (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight.html" rel="alternate" type="text/html" title="Backlight (4KB Executable Graphics)" /><published>2020-10-03T11:46:20+01:00</published><updated>2020-10-03T11:46:20+01:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/10/03/backlight.html">&lt;p&gt;&lt;img src=&quot;/images/backlight/Screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>There isn’t actually a room at all - just the floor and one wall.</p>
 
-&lt;p&gt;Released at Inercia 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
+<p>I use biased rendering here, meaning I shoot rays out of the camera into the scene, and each time the ray intersects a surface, I cast a ray towards the light rather than just hoping the ray will randomly hit it.</p>
 
-&lt;p&gt;&lt;a href=&quot;https://demozoo.org/graphics/284904/&quot;&gt;Download on Demozoo&lt;/a&gt;
-&lt;!--more--&gt;&lt;/p&gt;
+<p>Since the light is far away and mostly blocked by a wall, rendering time would be extremely long otherwise.</p>
 
-&lt;h3 id=&quot;when-you-forget-which-day-the-dealine-is&quot;&gt;When you forget which day the dealine is…&lt;/h3&gt;
+<h3 id="modeling">Modeling</h3>
 
-&lt;p&gt;This isn’t what I started out making. I started something entirely different, but it’s been a busy month and I had little time to work on it. Then somebody mentioned the deadline… on the day of the deadline 😬&lt;/p&gt;
+<p>There are 3 models here, all made with SDFs (signed distance functions). A key, one human, and a pair of hands.</p>
 
-&lt;p&gt;There wasn’t enought time to finish it, so I decided to re-work an older piece. The Church of the Spinning Cube logo felt like a good place to start, so I played around with the lighting and added some glass.&lt;/p&gt;
+<h2 id="key">Key</h2>
 
-&lt;h3 id=&quot;the-one-slightly-interesting-bit-of-new-tech&quot;&gt;The one slightly interesting bit of new ‘tech’&lt;/h3&gt;
+<p>It’s basic, but it’s small and far from the camera, no more is needed.</p>
 
-&lt;p&gt;Well, more of a composition aid, but new to me. I’d set my scene up with nice lighting and interesting caustics, but when I positioned the camera I had this:&lt;/p&gt;
+<p><img src="/images/kept_in_a_box/key.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/backlight/bl-1.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<h2 id="human">Human</h2>
 
-&lt;p&gt;It’s ok, but the marbles are blocking the view of the logo. Obvious solution: move the camera up:&lt;/p&gt;
+<p>This is a bit more complex, apart from the head shape (a distorted sphere) everything is made from blended boxes. Here’s how it’s built:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/backlight/bl-2.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/kept_in_a_box/character.gif" alt="Screenshot" /></p>
 
-&lt;p&gt;Now we have a good view of the logo, and a lot of the wall behind because the camera’s too high, and the nice caustics are off screen. Next obvious fix: angle the camera down:&lt;/p&gt;
+<p>Not everything is accurate, but it only needed to look right from one angle (or, technically two) in a badly lit room 🤷‍♀️</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/backlight/bl-3.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>##No room for 2</p>
 
-&lt;p&gt;The view is fine now, but now the logo has perspective, and it looks better when it’s parallel to the camera. Tilt the wall and logo? Redesign the whole scene?!&lt;/p&gt;
+<p>With the tight size limits of 4KB and 30s rendering time, I didn’t want the extra code and slower rendering 2 characters required, so I simply mirrored and flipped one:</p>
 
-&lt;p&gt;No, there’s an easy fix! In photography, in this situation I would use a &lt;em&gt;wider lens&lt;/em&gt;. Then I’d take the shot parallel to the logo, from higher up. The composition would be bad, because you’d get even more wall, &lt;strong&gt;but&lt;/strong&gt; the part of the view I want would be in frame, &lt;em&gt;and I can crop it later&lt;/em&gt;.&lt;/p&gt;
+<p><img src="/images/kept_in_a_box/mirroring.gif" alt="Screenshot" /></p>
 
-&lt;p&gt;It turns out cropping isn’t even necessary! We can just &lt;em&gt;pan the camera view&lt;/em&gt;.&lt;/p&gt;
+<h2 id="hands">Hands</h2>
 
-&lt;p&gt;I took this view:&lt;/p&gt;
+<p>The characters are holding hands, representing support for eachother. But doing this with a single, mirrored character is both complex (since the mirror would have to somehow be between the hands) and limits the hand positions (I don’t want them shaking hands).</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/backlight/bl-2.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>So, I decided to model the hands seperately:</p>
 
-&lt;p&gt;Then I just offset the uv coordinates I use to setup the camera:&lt;/p&gt;
+<p><img src="/images/kept_in_a_box/hands.gif" alt="Screenshot" /></p>
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;uv -= 0.6;&lt;/code&gt;&lt;/p&gt;
+<p>Again, they’re built from blended boxes, and the final step is to blend the hands into the character models.</p>
 
-&lt;p&gt;That’s it! Just one tiny line of code shifts the view down while preserving the composition. Exactly like taking a bigger view with a wider lens and cropping, only easier.&lt;/p&gt;
+<p><img src="/images/kept_in_a_box/hands_and_arms.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/backlight/bl-4.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Inercia 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Organising your workflow with tab groups in Xcode 12</title><link href="https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs.html" rel="alternate" type="text/html" title="Organising your workflow with tab groups in Xcode 12" /><published>2020-08-29T06:00:00+01:00</published><updated>2020-08-29T06:00:00+01:00</updated><id>https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs</id><content type="html" xml:base="https://alia-traces.github.io/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs.html">&lt;p&gt;&lt;img src=&quot;/images/xcode_tabs/hierarchy.png&quot; alt=&quot;Two levels of tab bar for tab grouping&quot; /&gt;&lt;/p&gt;
+<p>I’m not super happy with the modelling there, but it’s difficult and looks ok in the final image I think.</p>
 
-&lt;p&gt;Xcode 12 has an all new tab system. Here’s how I use it to organise my workflow!
-&lt;!--more--&gt;&lt;/p&gt;
+<h2 id="post">Post</h2>
 
-&lt;h2 id=&quot;window-tabs-document-tabs-tabs-vs-spaces&quot;&gt;Window tabs, document tabs, tabs vs. spaces…&lt;/h2&gt;
+<p>The raw pathtraced output looks like this (live preview quality, the final output is much less noisy):</p>
 
-&lt;p&gt;This really confused me at first. There are now 2 different types of tab: window and document. These appear on 2 seperate tab bars, one under the other… it looks weird but it’s &lt;em&gt;great&lt;/em&gt; for organising your workflow!&lt;/p&gt;
+<p><img src="/images/kept_in_a_box/post1.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;Here’s how I use it.&lt;/p&gt;
+<p>First I reduce brightness:</p>
 
-&lt;h3 id=&quot;window-tabs&quot;&gt;Window tabs&lt;/h3&gt;
+<p><img src="/images/kept_in_a_box/post2.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;At the top, I organise my work by topic using window tabs:&lt;/p&gt;
+<p>Then increase contrast:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/xcode_tabs/window_tabs.png&quot; alt=&quot;Window tabs&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/kept_in_a_box/post3.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;It makes more sense to think of window tabs as folders, and under each folder you can keep a bunch of documents open. I tend to split things up something like this:&lt;/p&gt;
+<p>I wanted more depth to the shadows, so I increased the ‘contrast bias’. This lets me adjust the midpoint about which contrast is changed, the code is like this:</p>
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Project&lt;/strong&gt; for the project settings, info.plist, etc.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;UI&lt;/strong&gt; for interface related files&lt;/li&gt;
-  &lt;li&gt;Code files for whatever I’m working on currently&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Debug&lt;/strong&gt; for debugging so the debugger doesn’t mess with my active editor&lt;/li&gt;
-&lt;/ul&gt;
+<p><code class="language-plaintext highlighter-rouge">luma = (luma - contrastBias) * contrast + contrastBias;</code></p>
 
-&lt;p&gt;Of course you can use whatever setup suits you.&lt;/p&gt;
+<p><img src="/images/kept_in_a_box/post4.jpg" alt="Screenshot" /></p>
 
-&lt;h3 id=&quot;document-tabs&quot;&gt;Document tabs&lt;/h3&gt;
+<p>Next is colour. I wanted richer colours, but without oversaturating. The first step is actually to desaturate:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/xcode_tabs/document_tabs.png&quot; alt=&quot;Document tabs&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/kept_in_a_box/post5.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;Under the window tabs, I use document tabs to keep all files I’m working on open. This lets me switch quickly between files, and the hierarchy of Window and Document tabs keeps things organised, so I can have 50 tabs open but still be able to find what I’m after quickly.&lt;/p&gt;
+<p>Then I increase ‘warmth’ by applying a power curve to the chroma:</p>
 
-&lt;h2 id=&quot;how-to-set-it-up&quot;&gt;How to set it up&lt;/h2&gt;
+<p><img src="/images/kept_in_a_box/post6.jpg" alt="Screenshot" /></p>
 
-&lt;h3 id=&quot;window-tabs-1&quot;&gt;Window tabs&lt;/h3&gt;
+<p>Just a touch of depth of field…</p>
 
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Turn on the Window Tab Bar&lt;/strong&gt; from the View menu, if it’s not already visible:
-&lt;img src=&quot;/images/xcode_tabs/tab_bar_menu.jpg&quot; alt=&quot;Turn on the window tab bar&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Add a few tabs&lt;/strong&gt; with the + button at the end of the window tab bar, as many as you need.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Rename the tabs&lt;/strong&gt;. You can use the Window menu (Rename Window Tab) or press ⌥⇧⌘t.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+<p><img src="/images/kept_in_a_box/post7.jpg" alt="Screenshot" /></p>
 
-&lt;h3 id=&quot;document-tabs-1&quot;&gt;Document tabs&lt;/h3&gt;
+<p>Finally, I added quite a hard vignette to cut the light beam and give the image better composition:</p>
 
-&lt;p&gt;There’s an important thing to know when you open a file:&lt;/p&gt;
+<p><img src="/images/kept_in_a_box/post8.jpg" alt="Screenshot" /></p>]]></content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html"><![CDATA[Released at Hogmanay 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo]]></summary></entry><entry><title type="html">Backlight (4KB Executable Graphics)</title><link href="http://localhost:4000/demoscene/metal/pathtracing/2020/10/03/backlight.html" rel="alternate" type="text/html" title="Backlight (4KB Executable Graphics)" /><published>2020-10-03T11:46:20+01:00</published><updated>2020-10-03T11:46:20+01:00</updated><id>http://localhost:4000/demoscene/metal/pathtracing/2020/10/03/backlight</id><content type="html" xml:base="http://localhost:4000/demoscene/metal/pathtracing/2020/10/03/backlight.html"><![CDATA[<p><img src="/images/backlight/Screenshot.jpg" alt="Screenshot" /></p>
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Single-clicking&lt;/strong&gt; a file will open it &lt;em&gt;temporarily&lt;/em&gt;. If you click on a different file, it’ll open it in the same tab.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Double-clicking&lt;/strong&gt; a file makes it &lt;em&gt;permanent&lt;/em&gt;. If you click on another file, it’ll open in a new tab, keeping the first document open.&lt;/li&gt;
-&lt;/ul&gt;
+<p>Released at Inercia 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).</p>
 
-&lt;p&gt;This is really handy: double click to open files you’re actively working on, and you’ll quickly have a useful set of tabs. When you just need a file open briefly and won’t come back to it, single click.&lt;/p&gt;
+<p><a href="https://demozoo.org/graphics/284904/">Download on Demozoo</a>
+<!--more--></p>
 
-&lt;p&gt;You can change this in the prefs, under Navigation.&lt;/p&gt;
+<h3 id="when-you-forget-which-day-the-dealine-is">When you forget which day the dealine is…</h3>
 
-&lt;h2 id=&quot;a-little-debug-tab-magic&quot;&gt;A little Debug tab magic&lt;/h2&gt;
+<p>This isn’t what I started out making. I started something entirely different, but it’s been a busy month and I had little time to work on it. Then somebody mentioned the deadline… on the day of the deadline 😬</p>
 
-&lt;p&gt;It’s frustrating to run your code, then hit a breakpoint or crash and have Xcode switch to another file and start the debugger, causing you to lose your place and your window layout.&lt;/p&gt;
+<p>There wasn’t enought time to finish it, so I decided to re-work an older piece. The Church of the Spinning Cube logo felt like a good place to start, so I played around with the lighting and added some glass.</p>
 
-&lt;p&gt;You can fix this! Use the Behaviours preferences to tell Xcode to switch to the Debug tab when it pauses, or when the build fails:&lt;/p&gt;
+<h3 id="the-one-slightly-interesting-bit-of-new-tech">The one slightly interesting bit of new ‘tech’</h3>
 
-&lt;p&gt;&lt;img src=&quot;/images/xcode_tabs/debug_behaviours.png&quot; alt=&quot;Configuring debug behaviour&quot; /&gt;&lt;/p&gt;
+<p>Well, more of a composition aid, but new to me. I’d set my scene up with nice lighting and interesting caustics, but when I positioned the camera I had this:</p>
 
-&lt;p&gt;You can set this up for failed tests, frame capture etc. when you want it to switch to the Debug tab too.&lt;/p&gt;</content><author><name></name></author><category term="xcode" /><category term="ios" /><category term="mac" /><category term="tools" /><summary type="html">Xcode 12 has an all new tab system. Here’s how I use it to organise my workflow!</summary></entry><entry><title type="html">Reconstruction (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html" rel="alternate" type="text/html" title="Reconstruction (4KB Executable Graphics)" /><published>2020-07-24T11:46:20+01:00</published><updated>2020-07-24T11:46:20+01:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/24/reconstruction.html">&lt;p&gt;&lt;img src=&quot;/images/reconstruction/Screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/backlight/bl-1.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;Released at FieldFX 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
+<p>It’s ok, but the marbles are blocking the view of the logo. Obvious solution: move the camera up:</p>
 
-&lt;p&gt;&lt;a href=&quot;https://demozoo.org/graphics/281254/&quot;&gt;Download on Demozoo&lt;/a&gt;
-&lt;!--more--&gt;&lt;/p&gt;
+<p><img src="/images/backlight/bl-2.jpg" alt="Screenshot" /></p>
 
-&lt;h3 id=&quot;glass-rendering&quot;&gt;Glass rendering&lt;/h3&gt;
+<p>Now we have a good view of the logo, and a lot of the wall behind because the camera’s too high, and the nice caustics are off screen. Next obvious fix: angle the camera down:</p>
 
-&lt;p&gt;I’ve always loved the way glass refracts and reflects, and rendering it is sooooo much fun.&lt;/p&gt;
+<p><img src="/images/backlight/bl-3.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;So, lots of glass. I havent done any comparisons, but my path tracer should produce pretty realistic results - it handles fresnel reflections, refraction, internal relection etc. There are a few sphere lights around the scene to produce caustics.&lt;/p&gt;
+<p>The view is fine now, but now the logo has perspective, and it looks better when it’s parallel to the camera. Tilt the wall and logo? Redesign the whole scene?!</p>
 
-&lt;p&gt;My last few pieces have been a bit heavy, resulting in a noisy image. I wanted to make something fast this time, so I could push quality in other ways, so instead of an SDF / raymarching setup I went with pure analytic intersections (i.e. calculate which object the ray will hit and jump directly there, instead of marching into the scene in a loop).&lt;/p&gt;
+<p>No, there’s an easy fix! In photography, in this situation I would use a <em>wider lens</em>. Then I’d take the shot parallel to the logo, from higher up. The composition would be bad, because you’d get even more wall, <strong>but</strong> the part of the view I want would be in frame, <em>and I can crop it later</em>.</p>
 
-&lt;p&gt;The downside: you’re stuck with simple geometry (or triangle based meshes - but that has its own set of problems).&lt;/p&gt;
+<p>It turns out cropping isn’t even necessary! We can just <em>pan the camera view</em>.</p>
 
-&lt;p&gt;So, I decided to stick with spheres, and for interest slice them up.&lt;/p&gt;
+<p>I took this view:</p>
 
-&lt;h3 id=&quot;meaning&quot;&gt;Meaning&lt;/h3&gt;
+<p><img src="/images/backlight/bl-2.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;Having some meaning in a piece is important to me, and with only slices of spheres to play with it needed to be abstract.&lt;/p&gt;
+<p>Then I just offset the uv coordinates I use to setup the camera:</p>
 
-&lt;p&gt;I went with a transgender theme again (indicated by the colours - the stripes in the marble form a trans flag).&lt;/p&gt;
+<p><code class="language-plaintext highlighter-rouge">uv -= 0.6;</code></p>
 
-&lt;p&gt;On the left, an initial pile of glass - interesting, but wrong. In the middle, the true shape is understood, and the order has been established. Finally, the parts come together in a cohesive whole, and a perfect sphere is formed.&lt;/p&gt;
+<p>That’s it! Just one tiny line of code shifts the view down while preserving the composition. Exactly like taking a bigger view with a wider lens and cropping, only easier.</p>
 
-&lt;p&gt;This reflects the transformation process the identity goes through in some transgender people: recognising that the shape of the self is wrong, figuring out the true identity, and reconstruction in the true form.&lt;/p&gt;
+<p><img src="/images/backlight/bl-4.jpg" alt="Screenshot" /></p>]]></content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html"><![CDATA[Released at Inercia 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo]]></summary></entry><entry><title type="html">Organising your workflow with tab groups in Xcode 12</title><link href="http://localhost:4000/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs.html" rel="alternate" type="text/html" title="Organising your workflow with tab groups in Xcode 12" /><published>2020-08-29T06:00:00+01:00</published><updated>2020-08-29T06:00:00+01:00</updated><id>http://localhost:4000/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs</id><content type="html" xml:base="http://localhost:4000/xcode/ios/mac/tools/2020/08/29/xcode-12-tabs.html"><![CDATA[<p><img src="/images/xcode_tabs/hierarchy.png" alt="Two levels of tab bar for tab grouping" /></p>
 
-&lt;h3 id=&quot;breakdown&quot;&gt;Breakdown&lt;/h3&gt;
+<p>Xcode 12 has an all new tab system. Here’s how I use it to organise my workflow!
+<!--more--></p>
 
-&lt;p&gt;Starting with the stage and lighting, I initially added a floor, a back wall (which is glossy so there’s some reflected light) and a couple of lights. This is a zoomed out view, with the floor set to checkerboard to make it easier to see what’s going on:&lt;/p&gt;
+<h2 id="window-tabs-document-tabs-tabs-vs-spaces">Window tabs, document tabs, tabs vs. spaces…</h2>
 
-&lt;p&gt;&lt;img src=&quot;/images/reconstruction/Lighting.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>This really confused me at first. There are now 2 different types of tab: window and document. These appear on 2 seperate tab bars, one under the other… it looks weird but it’s <em>great</em> for organising your workflow!</p>
 
-&lt;p&gt;Depth of Field is actually turned right down, but I have another camera setting that makes the edges of the image out of focus - with a wider lens it becomes much more obvious than in the final image.&lt;/p&gt;
+<p>Here’s how I use it.</p>
 
-&lt;p&gt;Zooming back in, the basic layout plan was to have 3 spheres:&lt;/p&gt;
+<h3 id="window-tabs">Window tabs</h3>
 
-&lt;p&gt;&lt;img src=&quot;/images/reconstruction/Layout.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>At the top, I organise my work by topic using window tabs:</p>
 
-&lt;p&gt;Finally I took each sphere and split it into 5 slices, and moved the pieces about a bit.&lt;/p&gt;
+<p><img src="/images/xcode_tabs/window_tabs.png" alt="Window tabs" /></p>
 
-&lt;p&gt;This is the raw output from the renderer:&lt;/p&gt;
+<p>It makes more sense to think of window tabs as folders, and under each folder you can keep a bunch of documents open. I tend to split things up something like this:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/reconstruction/post1.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<ul>
+  <li><strong>Project</strong> for the project settings, info.plist, etc.</li>
+  <li><strong>UI</strong> for interface related files</li>
+  <li>Code files for whatever I’m working on currently</li>
+  <li><strong>Debug</strong> for debugging so the debugger doesn’t mess with my active editor</li>
+</ul>
 
-&lt;p&gt;The final stage is colour grading, because I got my grading code working for this one :D I only used about 30% of the controls in the end, since it didn’t need much else.&lt;/p&gt;
+<p>Of course you can use whatever setup suits you.</p>
 
-&lt;p&gt;My process for colour grading is to switch to YUV colour space (a single mat3 multiply), then work on luma and chroma seperately, then back to RGB.&lt;/p&gt;
+<h3 id="document-tabs">Document tabs</h3>
 
-&lt;p&gt;The first step is to increase saturation:&lt;/p&gt;
+<p><img src="/images/xcode_tabs/document_tabs.png" alt="Document tabs" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/reconstruction/post_saturation.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p>Under the window tabs, I use document tabs to keep all files I’m working on open. This lets me switch quickly between files, and the hierarchy of Window and Document tabs keeps things organised, so I can have 50 tabs open but still be able to find what I’m after quickly.</p>
 
-&lt;p&gt;I applied a cyan tint to remove the pink tint in the image. This lets the light colour shine through (see how the wall is more pink and the floor is more blue - the ambient colour is set to blue sky, red horizon):&lt;/p&gt;
+<h2 id="how-to-set-it-up">How to set it up</h2>
 
-&lt;p&gt;&lt;img src=&quot;/images/reconstruction/post_main_tint.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<h3 id="window-tabs-1">Window tabs</h3>
 
-&lt;p&gt;I shifted the tint further into blue/green in the shadows, which looks like it’s gone too far:&lt;/p&gt;
+<ol>
+  <li>
+    <p><strong>Turn on the Window Tab Bar</strong> from the View menu, if it’s not already visible:
+<img src="/images/xcode_tabs/tab_bar_menu.jpg" alt="Turn on the window tab bar" /></p>
+  </li>
+  <li>
+    <p><strong>Add a few tabs</strong> with the + button at the end of the window tab bar, as many as you need.</p>
+  </li>
+  <li>
+    <p><strong>Rename the tabs</strong>. You can use the Window menu (Rename Window Tab) or press ⌥⇧⌘t.</p>
+  </li>
+</ol>
 
-&lt;p&gt;&lt;img src=&quot;/images/reconstruction/post_shadow_tint.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<h3 id="document-tabs-1">Document tabs</h3>
 
-&lt;p&gt;But when the highlights are shifted more towards orange it balances that and gives a nice tonal range across the whole image:&lt;/p&gt;
+<p>There’s an important thing to know when you open a file:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/reconstruction/post_highlight_tint.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<ul>
+  <li><strong>Single-clicking</strong> a file will open it <em>temporarily</em>. If you click on a different file, it’ll open it in the same tab.</li>
+  <li><strong>Double-clicking</strong> a file makes it <em>permanent</em>. If you click on another file, it’ll open in a new tab, keeping the first document open.</li>
+</ul>
 
-&lt;p&gt;The last thing I want to mention is the important of lots of light bounces with glass. Because there are so many potential paths through the surface (reflection or refraction at the surface, reflection or refraction at the exit, paths that hit multiple glass surfaces, and paths that take many internal reflections…) it’s essential to allow a large number of bounces per ray.&lt;/p&gt;
+<p>This is really handy: double click to open files you’re actively working on, and you’ll quickly have a useful set of tabs. When you just need a file open briefly and won’t come back to it, single click.</p>
 
-&lt;p&gt;I settled on 25 in the end, here’s a video showing what happens as the bounce count goes from 2-25:&lt;/p&gt;
+<p>You can change this in the prefs, under Navigation.</p>
 
-&lt;div&gt;
-	&lt;video controls=&quot;&quot; loop=&quot;&quot; style=&quot;min-width: 100%;&quot;&gt;
-	&lt;source type=&quot;video/mp4&quot; src=&quot;/images/reconstruction/light_bounces.mp4&quot; /&gt;
-	&lt;source type=&quot;video/webm&quot; src=&quot;/images/reconstruction/eclipse.webm&quot; /&gt;
-	&lt;/video&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at FieldFX 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">How to use Metal frame capture outside of Xcode</title><link href="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" rel="alternate" type="text/html" title="How to use Metal frame capture outside of Xcode" /><published>2020-07-18T11:46:20+01:00</published><updated>2020-07-18T11:46:20+01:00</updated><id>https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode</id><content type="html" xml:base="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html">&lt;p&gt;Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview.&lt;/p&gt;
+<h2 id="a-little-debug-tab-magic">A little Debug tab magic</h2>
 
-&lt;p&gt;&lt;img src=&quot;/images/MetalToyUI.jpg&quot; alt=&quot;MetalToy's user interface&quot; /&gt;&lt;br /&gt;&lt;em&gt;MetalToy looks like this&lt;/em&gt;
-&lt;!--more--&gt;&lt;/p&gt;
+<p>It’s frustrating to run your code, then hit a breakpoint or crash and have Xcode switch to another file and start the debugger, causing you to lose your place and your window layout.</p>
 
-&lt;p&gt;At some point I’ll clean it up and open source it, but here’s something that might be of use to other mac / iOS devs. Yesterday I was trying to fix a bug in a shader, and I thought&lt;/p&gt;
+<p>You can fix this! Use the Behaviours preferences to tell Xcode to switch to the Debug tab when it pauses, or when the build fails:</p>
 
-&lt;h3 id=&quot;itd-be-so-good-to-have-a-debug-button-that-fires-up-a-full-shader-debugger&quot;&gt;&lt;em&gt;“It’d be so good to have a ‘Debug’ button that fires up a full shader debugger”&lt;/em&gt;&lt;/h3&gt;
+<p><img src="/images/xcode_tabs/debug_behaviours.png" alt="Configuring debug behaviour" /></p>
 
-&lt;p&gt;It took around 20 minutes to do it :D&lt;/p&gt;
+<p>You can set this up for failed tests, frame capture etc. when you want it to switch to the Debug tab too.</p>]]></content><author><name></name></author><category term="xcode" /><category term="ios" /><category term="mac" /><category term="tools" /><summary type="html"><![CDATA[Xcode 12 has an all new tab system. Here’s how I use it to organise my workflow!]]></summary></entry><entry><title type="html">Reconstruction (4KB Executable Graphics)</title><link href="http://localhost:4000/demoscene/metal/pathtracing/2020/07/24/reconstruction.html" rel="alternate" type="text/html" title="Reconstruction (4KB Executable Graphics)" /><published>2020-07-24T11:46:20+01:00</published><updated>2020-07-24T11:46:20+01:00</updated><id>http://localhost:4000/demoscene/metal/pathtracing/2020/07/24/reconstruction</id><content type="html" xml:base="http://localhost:4000/demoscene/metal/pathtracing/2020/07/24/reconstruction.html"><![CDATA[<p><img src="/images/reconstruction/Screenshot.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/MetalToyDebugButton.jpg&quot; alt=&quot;MetalToy with a shiny new debug button&quot; /&gt;&lt;br /&gt;&lt;em&gt;One shiny new Debug button&lt;/em&gt;&lt;/p&gt;
+<p>Released at FieldFX 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).</p>
 
-&lt;h2 id=&quot;dont-build-your-own-gpu-debugger&quot;&gt;Don’t build your own GPU debugger&lt;/h2&gt;
+<p><a href="https://demozoo.org/graphics/281254/">Download on Demozoo</a>
+<!--more--></p>
 
-&lt;p&gt;Unless you really want to I guess? Xcode already has some amazing GPU debugging and profiling tools built in, and you can simply hit the frame capture button while debugging your app. This only works if you’re debugging it though.&lt;/p&gt;
+<h3 id="glass-rendering">Glass rendering</h3>
 
-&lt;p&gt;What I needed was a way to run frame capture outside of Xcode. Turns out Apple anticipated this nicely!&lt;/p&gt;
+<p>I’ve always loved the way glass refracts and reflects, and rendering it is sooooo much fun.</p>
 
-&lt;p&gt;For full details, you can see &lt;a href=&quot;https://developer.apple.com/documentation/metal/frame_capture_debugging_tools/enabling_frame_capture&quot;&gt;Apple’s documentation here&lt;/a&gt;. Since their docs have a habit of, uh, moving, disappearing or not being updated, I’ll document the process here:&lt;/p&gt;
+<p>So, lots of glass. I havent done any comparisons, but my path tracer should produce pretty realistic results - it handles fresnel reflections, refraction, internal relection etc. There are a few sphere lights around the scene to produce caustics.</p>
 
-&lt;ol&gt;
-  &lt;li&gt;In your project’s info.plist add the key “MetalCaptureEnabled”, set it to true&lt;/li&gt;
-  &lt;li&gt;Add code to capture GPU commands. See &lt;a href=&quot;https://developer.apple.com/documentation/metal/frame_capture_debugging_tools/capturing_gpu_command_data_programmatically#3325255&quot;&gt;Apple’s docs on writing frame captures to a file here&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
+<p>My last few pieces have been a bit heavy, resulting in a noisy image. I wanted to make something fast this time, so I could push quality in other ways, so instead of an SDF / raymarching setup I went with pure analytic intersections (i.e. calculate which object the ray will hit and jump directly there, instead of marching into the scene in a loop).</p>
 
-&lt;p&gt;In my case I added a ‘Debug’ button. This pauses my MTKView (which just makes things simpler), starts capturing, calls view.draw() and ends. It save a .gputrace (frame capture) file to disk, then asks Xcode to open the file.&lt;/p&gt;
+<p>The downside: you’re stuck with simple geometry (or triangle based meshes - but that has its own set of problems).</p>
 
-&lt;p&gt;That means I can just hit the Debug button at any time in MetalToy and it fires up the full Xcode GPU debugging tools :D&lt;/p&gt;
+<p>So, I decided to stick with spheres, and for interest slice them up.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/MetalToyGPUDebug.jpg&quot; alt=&quot;The shader in Xcode's GPU debugger&quot; /&gt;&lt;br /&gt;&lt;em&gt;A click of a button, and we have a full shader debugger!&lt;/em&gt;&lt;/p&gt;
+<h3 id="meaning">Meaning</h3>
 
-&lt;h2 id=&quot;very-useful-for-remote-debugging&quot;&gt;VERY useful for remote debugging&lt;/h2&gt;
+<p>Having some meaning in a piece is important to me, and with only slices of spheres to play with it needed to be abstract.</p>
 
-&lt;p&gt;You could also just write the file out and send it to your own server, or ask the customer to email it.&lt;/p&gt;
+<p>I went with a transgender theme again (indicated by the colours - the stripes in the marble form a trans flag).</p>
 
-&lt;p&gt;Have a customer who’s seeing an unusual bug you can’t reproduce? Now they can just hit a button, and it’ll send you a frame capture so you can reproduce it instantly.&lt;/p&gt;
+<p>On the left, an initial pile of glass - interesting, but wrong. In the middle, the true shape is understood, and the order has been established. Finally, the parts come together in a cohesive whole, and a perfect sphere is formed.</p>
 
-&lt;h2 id=&quot;the-code&quot;&gt;The Code&lt;/h2&gt;
+<p>This reflects the transformation process the identity goes through in some transgender people: recognising that the shape of the self is wrong, figuring out the true identity, and reconstruction in the true form.</p>
 
-&lt;p&gt;Here’s what I did - the Debug button just calls this function:&lt;/p&gt;
+<h3 id="breakdown">Breakdown</h3>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;captureFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;// Stop playback if playing&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;preview&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;play&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+<p>Starting with the stage and lighting, I initially added a floor, a back wall (which is glossy so there’s some reflected light) and a couple of lights. This is a zoomed out view, with the floor set to checkerboard to make it easier to see what’s going on:</p>
+
+<p><img src="/images/reconstruction/Lighting.jpg" alt="Screenshot" /></p>
+
+<p>Depth of Field is actually turned right down, but I have another camera setting that makes the edges of the image out of focus - with a wider lens it becomes much more obvious than in the final image.</p>
+
+<p>Zooming back in, the basic layout plan was to have 3 spheres:</p>
+
+<p><img src="/images/reconstruction/Layout.jpg" alt="Screenshot" /></p>
+
+<p>Finally I took each sphere and split it into 5 slices, and moved the pieces about a bit.</p>
+
+<p>This is the raw output from the renderer:</p>
+
+<p><img src="/images/reconstruction/post1.jpg" alt="Screenshot" /></p>
+
+<p>The final stage is colour grading, because I got my grading code working for this one :D I only used about 30% of the controls in the end, since it didn’t need much else.</p>
+
+<p>My process for colour grading is to switch to YUV colour space (a single mat3 multiply), then work on luma and chroma seperately, then back to RGB.</p>
+
+<p>The first step is to increase saturation:</p>
+
+<p><img src="/images/reconstruction/post_saturation.jpg" alt="Screenshot" /></p>
+
+<p>I applied a cyan tint to remove the pink tint in the image. This lets the light colour shine through (see how the wall is more pink and the floor is more blue - the ambient colour is set to blue sky, red horizon):</p>
+
+<p><img src="/images/reconstruction/post_main_tint.jpg" alt="Screenshot" /></p>
+
+<p>I shifted the tint further into blue/green in the shadows, which looks like it’s gone too far:</p>
+
+<p><img src="/images/reconstruction/post_shadow_tint.jpg" alt="Screenshot" /></p>
+
+<p>But when the highlights are shifted more towards orange it balances that and gives a nice tonal range across the whole image:</p>
+
+<p><img src="/images/reconstruction/post_highlight_tint.jpg" alt="Screenshot" /></p>
+
+<p>The last thing I want to mention is the important of lots of light bounces with glass. Because there are so many potential paths through the surface (reflection or refraction at the surface, reflection or refraction at the exit, paths that hit multiple glass surfaces, and paths that take many internal reflections…) it’s essential to allow a large number of bounces per ray.</p>
+
+<p>I settled on 25 in the end, here’s a video showing what happens as the bounce count goes from 2-25:</p>
+
+<div>
+	<video controls="" loop="" style="min-width: 100%;">
+	<source type="video/mp4" src="/images/reconstruction/light_bounces.mp4" />
+	<source type="video/webm" src="/images/reconstruction/eclipse.webm" />
+	</video>
+</div>]]></content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html"><![CDATA[Released at FieldFX 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo]]></summary></entry><entry><title type="html">How to use Metal frame capture outside of Xcode</title><link href="http://localhost:4000/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" rel="alternate" type="text/html" title="How to use Metal frame capture outside of Xcode" /><published>2020-07-18T11:46:20+01:00</published><updated>2020-07-18T11:46:20+01:00</updated><id>http://localhost:4000/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode</id><content type="html" xml:base="http://localhost:4000/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html"><![CDATA[<p>Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview.</p>
+
+<p><img src="/images/MetalToyUI.jpg" alt="MetalToy's user interface" /><br /><em>MetalToy looks like this</em>
+<!--more--></p>
+
+<p>At some point I’ll clean it up and open source it, but here’s something that might be of use to other mac / iOS devs. Yesterday I was trying to fix a bug in a shader, and I thought</p>
+
+<h3 id="itd-be-so-good-to-have-a-debug-button-that-fires-up-a-full-shader-debugger"><em>“It’d be so good to have a ‘Debug’ button that fires up a full shader debugger”</em></h3>
+
+<p>It took around 20 minutes to do it :D</p>
+
+<p><img src="/images/MetalToyDebugButton.jpg" alt="MetalToy with a shiny new debug button" /><br /><em>One shiny new Debug button</em></p>
+
+<h2 id="dont-build-your-own-gpu-debugger">Don’t build your own GPU debugger</h2>
+
+<p>Unless you really want to I guess? Xcode already has some amazing GPU debugging and profiling tools built in, and you can simply hit the frame capture button while debugging your app. This only works if you’re debugging it though.</p>
+
+<p>What I needed was a way to run frame capture outside of Xcode. Turns out Apple anticipated this nicely!</p>
+
+<p>For full details, you can see <a href="https://developer.apple.com/documentation/metal/frame_capture_debugging_tools/enabling_frame_capture">Apple’s documentation here</a>. Since their docs have a habit of, uh, moving, disappearing or not being updated, I’ll document the process here:</p>
+
+<ol>
+  <li>In your project’s info.plist add the key “MetalCaptureEnabled”, set it to true</li>
+  <li>Add code to capture GPU commands. See <a href="https://developer.apple.com/documentation/metal/frame_capture_debugging_tools/capturing_gpu_command_data_programmatically#3325255">Apple’s docs on writing frame captures to a file here</a></li>
+</ol>
+
+<p>In my case I added a ‘Debug’ button. This pauses my MTKView (which just makes things simpler), starts capturing, calls view.draw() and ends. It save a .gputrace (frame capture) file to disk, then asks Xcode to open the file.</p>
+
+<p>That means I can just hit the Debug button at any time in MetalToy and it fires up the full Xcode GPU debugging tools :D</p>
+
+<p><img src="/images/MetalToyGPUDebug.jpg" alt="The shader in Xcode's GPU debugger" /><br /><em>A click of a button, and we have a full shader debugger!</em></p>
+
+<h2 id="very-useful-for-remote-debugging">VERY useful for remote debugging</h2>
+
+<p>You could also just write the file out and send it to your own server, or ask the customer to email it.</p>
+
+<p>Have a customer who’s seeing an unusual bug you can’t reproduce? Now they can just hit a button, and it’ll send you a frame capture so you can reproduce it instantly.</p>
+
+<h2 id="the-code">The Code</h2>
+
+<p>Here’s what I did - the Debug button just calls this function:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">captureFrame</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// Stop playback if playing</span>
+	<span class="n">preview</span><span class="o">.</span><span class="n">play</span> <span class="o">=</span> <span class="kc">false</span>
 		
-	&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;captureManager&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;MTLCaptureManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shared&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+	<span class="k">let</span> <span class="nv">captureManager</span> <span class="o">=</span> <span class="kt">MTLCaptureManager</span><span class="o">.</span><span class="nf">shared</span><span class="p">()</span>
 		
-	&lt;span class=&quot;k&quot;&gt;guard&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;captureManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;supportsDestination&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gpuTraceDocument&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Capture to a GPU tracefile is not supported&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+	<span class="k">guard</span> <span class="n">captureManager</span><span class="o">.</span><span class="nf">supportsDestination</span><span class="p">(</span><span class="o">.</span><span class="n">gpuTraceDocument</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="nf">print</span><span class="p">(</span><span class="s">"Capture to a GPU tracefile is not supported"</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
 	
-	&lt;span class=&quot;c1&quot;&gt;// Write file to tmp folder&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;tmpDir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;FileManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temporaryDirectory&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;destURL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmpDir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;appendingPathComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;frameCapture.gputrace&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	<span class="c1">// Write file to tmp folder</span>
+	<span class="k">let</span> <span class="nv">tmpDir</span> <span class="o">=</span> <span class="kt">FileManager</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="n">temporaryDirectory</span>
+	<span class="k">let</span> <span class="nv">destURL</span> <span class="o">=</span> <span class="n">tmpDir</span><span class="o">.</span><span class="nf">appendingPathComponent</span><span class="p">(</span><span class="s">"frameCapture.gputrace"</span><span class="p">)</span>
 	
-	&lt;span class=&quot;c1&quot;&gt;// Set up the capture destiptor&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;captureDescriptor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;MTLCaptureDescriptor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;captureDescriptor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;captureObject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mtlDev&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;captureDescriptor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;destination&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gpuTraceDocument&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;captureDescriptor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outputURL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;destURL&lt;/span&gt;
+	<span class="c1">// Set up the capture destiptor</span>
+	<span class="k">let</span> <span class="nv">captureDescriptor</span> <span class="o">=</span> <span class="kt">MTLCaptureDescriptor</span><span class="p">()</span>
+	<span class="n">captureDescriptor</span><span class="o">.</span><span class="n">captureObject</span> <span class="o">=</span> <span class="n">mtlDev</span>
+	<span class="n">captureDescriptor</span><span class="o">.</span><span class="n">destination</span> <span class="o">=</span> <span class="o">.</span><span class="n">gpuTraceDocument</span>
+	<span class="n">captureDescriptor</span><span class="o">.</span><span class="n">outputURL</span> <span class="o">=</span> <span class="n">destURL</span>
 		
-	&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;captureManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;startCapture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;captureDescriptor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Failed to capture frame for debug: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;localizedDescription&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+	<span class="k">do</span> <span class="p">{</span>
+		<span class="k">try</span> <span class="n">captureManager</span><span class="o">.</span><span class="nf">startCapture</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="n">captureDescriptor</span><span class="p">)</span>
+	<span class="p">}</span>  <span class="k">catch</span> <span class="k">let</span> <span class="nv">e</span> <span class="p">{</span>
+		<span class="nf">print</span><span class="p">(</span><span class="s">"Failed to capture frame for debug: </span><span class="se">\(</span><span class="n">e</span><span class="o">.</span><span class="n">localizedDescription</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
 		
-	&lt;span class=&quot;c1&quot;&gt;// Draw a frame to capture it&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;preview&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;draw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+	<span class="c1">// Draw a frame to capture it</span>
+	<span class="n">preview</span><span class="o">.</span><span class="nf">draw</span><span class="p">()</span>
 		
-	&lt;span class=&quot;n&quot;&gt;captureManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;stopCapture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+	<span class="n">captureManager</span><span class="o">.</span><span class="nf">stopCapture</span><span class="p">()</span>
 		
-	&lt;span class=&quot;c1&quot;&gt;// Open the file in xcode&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;standardPath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;destURL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;scriptSource&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;tell application &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Xcode&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;open &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;\(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;standardPath&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;)\&quot;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;end tell&quot;&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;NSAppleScript&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scriptSource&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;kt&quot;&gt;DispatchQueue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;XcodeOpen&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;qos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;utility&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;concurrent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;autoreleaseFrequency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inherit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;executeAndReturnError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><category term="metal" /><category term="tools" /><category term="xcode" /><summary type="html">Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview. MetalToy looks like this</summary></entry><entry><title type="html">End of an Era (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/11/end-of-an-era.html" rel="alternate" type="text/html" title="End of an Era (4KB Executable Graphics)" /><published>2020-07-11T11:46:20+01:00</published><updated>2020-07-11T11:46:20+01:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/11/end-of-an-era</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/07/11/end-of-an-era.html">&lt;p&gt;&lt;img src=&quot;/images/end_of_an_era/Screenshot.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+	<span class="c1">// Open the file in xcode</span>
+	<span class="k">let</span> <span class="nv">standardPath</span> <span class="o">=</span> <span class="n">destURL</span><span class="o">.</span><span class="n">path</span>
+	<span class="k">let</span> <span class="nv">scriptSource</span> <span class="o">=</span> <span class="s">"tell application </span><span class="se">\"</span><span class="s">Xcode</span><span class="se">\"\n</span><span class="s">open </span><span class="se">\"\(</span><span class="n">standardPath</span><span class="se">)\"\n</span><span class="s">end tell"</span>
+	<span class="k">let</span> <span class="nv">script</span> <span class="o">=</span> <span class="kt">NSAppleScript</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">source</span><span class="p">:</span> <span class="n">scriptSource</span><span class="p">)</span>
+	<span class="kt">DispatchQueue</span><span class="p">(</span><span class="nv">label</span><span class="p">:</span> <span class="s">"XcodeOpen"</span><span class="p">,</span> <span class="nv">qos</span><span class="p">:</span> <span class="o">.</span><span class="n">utility</span><span class="p">,</span> <span class="nv">attributes</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">concurrent</span><span class="p">],</span> <span class="nv">autoreleaseFrequency</span><span class="p">:</span> <span class="o">.</span><span class="n">inherit</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span><span class="o">.</span><span class="k">async</span> <span class="p">{</span>
+			<span class="n">script</span><span class="p">?</span><span class="o">.</span><span class="nf">executeAndReturnError</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></figure>]]></content><author><name></name></author><category term="metal" /><category term="tools" /><category term="xcode" /><summary type="html"><![CDATA[Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview. MetalToy looks like this]]></summary></entry><entry><title type="html">End of an Era (4KB Executable Graphics)</title><link href="http://localhost:4000/demoscene/metal/pathtracing/2020/07/11/end-of-an-era.html" rel="alternate" type="text/html" title="End of an Era (4KB Executable Graphics)" /><published>2020-07-11T11:46:20+01:00</published><updated>2020-07-11T11:46:20+01:00</updated><id>http://localhost:4000/demoscene/metal/pathtracing/2020/07/11/end-of-an-era</id><content type="html" xml:base="http://localhost:4000/demoscene/metal/pathtracing/2020/07/11/end-of-an-era.html"><![CDATA[<p><img src="/images/end_of_an_era/Screenshot.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;Released at Solskogen 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
+<p>Released at Solskogen 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).</p>
 
-&lt;p&gt;&lt;a href=&quot;https://demozoo.org/graphics/280517/&quot;&gt;Download on Demozoo&lt;/a&gt;
-&lt;!--more--&gt;&lt;/p&gt;
+<p><a href="https://demozoo.org/graphics/280517/">Download on Demozoo</a>
+<!--more--></p>
 
-&lt;h3 id=&quot;where-leaves-fall-in-autumn-flowers-bloom-in-spring&quot;&gt;&lt;em&gt;Where leaves fall in Autumn, flowers bloom in Spring&lt;/em&gt;&lt;/h3&gt;
+<h3 id="where-leaves-fall-in-autumn-flowers-bloom-in-spring"><em>Where leaves fall in Autumn, flowers bloom in Spring</em></h3>
 
-&lt;p&gt;Solskogen 2020 was the last ever Solskogen party, and I wanted to make something fitting.&lt;/p&gt;
+<p>Solskogen 2020 was the last ever Solskogen party, and I wanted to make something fitting.</p>
 
-&lt;p&gt;It was the end of an era, and a time of sadness as well as a really good party. Sunset and Autumn came to mind, and Autumn speaks to me of falling leaves the colour of flames and golden light.&lt;/p&gt;
+<p>It was the end of an era, and a time of sadness as well as a really good party. Sunset and Autumn came to mind, and Autumn speaks to me of falling leaves the colour of flames and golden light.</p>
 
-&lt;p&gt;So, a leaf strewn forest floor, dappled golden sunlight. The final element was the ring - discarded and left in the woods, a symbolic closing gesture.&lt;/p&gt;
+<p>So, a leaf strewn forest floor, dappled golden sunlight. The final element was the ring - discarded and left in the woods, a symbolic closing gesture.</p>
 
-&lt;h2 id=&quot;breakdown&quot;&gt;Breakdown&lt;/h2&gt;
+<h2 id="breakdown">Breakdown</h2>
 
-&lt;p&gt;Again, I started with the lighting. The ambient light has a green tint, and the main light is quite orange to hint at sunset.&lt;/p&gt;
+<p>Again, I started with the lighting. The ambient light has a green tint, and the main light is quite orange to hint at sunset.</p>
 
-&lt;p&gt;I placed 2 planes between the scene and the light with holes in to create a dappled light effect (you can see the hole pattern, but with the leaves in places it’s not visible so wasn’t worth changing).&lt;/p&gt;
+<p>I placed 2 planes between the scene and the light with holes in to create a dappled light effect (you can see the hole pattern, but with the leaves in places it’s not visible so wasn’t worth changing).</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/end_of_an_era/1.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/end_of_an_era/1.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;The ring is just a stretched torus.&lt;/p&gt;
+<p>The ring is just a stretched torus.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/end_of_an_era/2.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/end_of_an_era/2.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;Next, leaves. I used SDFs for this, with domain repetition to basically make a grid of leaves. Size, shape, colour and rotation are randomised, and they’re given a slight curl.&lt;/p&gt;
+<p>Next, leaves. I used SDFs for this, with domain repetition to basically make a grid of leaves. Size, shape, colour and rotation are randomised, and they’re given a slight curl.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/end_of_an_era/3.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/end_of_an_era/3.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;I then added more layers, with a random rotation and offset, to build the leaf pile.&lt;/p&gt;
+<p>I then added more layers, with a random rotation and offset, to build the leaf pile.</p>
 
-&lt;p&gt;Easy, but: the leaves all intersect.&lt;/p&gt;
+<p>Easy, but: the leaves all intersect.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/end_of_an_era/4.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/end_of_an_era/4.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;I had to figure out how to pile leaves up without them overlapping. A physics sim wasn’t viable. Doing this analytically is way beyond my maths level. Time for dirty hacks :D&lt;/p&gt;
+<p>I had to figure out how to pile leaves up without them overlapping. A physics sim wasn’t viable. Doing this analytically is way beyond my maths level. Time for dirty hacks :D</p>
 
-&lt;p&gt;Compare this shot with the last one - the leaves are in exactly the same position, but they magically no longer intersect:&lt;/p&gt;
+<p>Compare this shot with the last one - the leaves are in exactly the same position, but they magically no longer intersect:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/end_of_an_era/5.jpg&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/end_of_an_era/5.jpg" alt="Screenshot" /></p>
 
-&lt;p&gt;How? I built the leaf pile in layers, bottom to top. For each layer, I take the shape of the leaf and use it to clip any geometry above it. This means if there’s a lower leaf intersecting the current one, the part that intersects gets removed. Cheap, hacky, but looks ok 🙃&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Solskogen 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Cloth!!! (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/06/20/cloth.html" rel="alternate" type="text/html" title="Cloth!!! (4KB Executable Graphics)" /><published>2020-06-20T11:46:20+01:00</published><updated>2020-06-20T11:46:20+01:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/06/20/cloth</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/06/20/cloth.html">&lt;p&gt;&lt;img src=&quot;/images/cloth/screenshot.jpg&quot; alt=&quot;Undefined Symbol screenshot&quot; /&gt;&lt;/p&gt;
+<p>How? I built the leaf pile in layers, bottom to top. For each layer, I take the shape of the leaf and use it to clip any geometry above it. This means if there’s a lower leaf intersecting the current one, the part that intersects gets removed. Cheap, hacky, but looks ok 🙃</p>]]></content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html"><![CDATA[Released at Solskogen 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo]]></summary></entry><entry><title type="html">Cloth!!! (4KB Executable Graphics)</title><link href="http://localhost:4000/demoscene/metal/pathtracing/2020/06/20/cloth.html" rel="alternate" type="text/html" title="Cloth!!! (4KB Executable Graphics)" /><published>2020-06-20T11:46:20+01:00</published><updated>2020-06-20T11:46:20+01:00</updated><id>http://localhost:4000/demoscene/metal/pathtracing/2020/06/20/cloth</id><content type="html" xml:base="http://localhost:4000/demoscene/metal/pathtracing/2020/06/20/cloth.html"><![CDATA[<p><img src="/images/cloth/screenshot.jpg" alt="Undefined Symbol screenshot" /></p>
 
-&lt;p&gt;Released at Nova 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data) with help from Lia-Sae.&lt;/p&gt;
+<p>Released at Nova 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data) with help from Lia-Sae.</p>
 
-&lt;p&gt;&lt;a href=&quot;https://demozoo.org/graphics/279420/&quot;&gt;Download on Demozoo&lt;/a&gt;
-&lt;!--more--&gt;&lt;/p&gt;
+<p><a href="https://demozoo.org/graphics/279420/">Download on Demozoo</a>
+<!--more--></p>
 
-&lt;h2 id=&quot;the-challenge-rendering-realistic-cloth&quot;&gt;The challenge: Rendering realistic cloth&lt;/h2&gt;
+<h2 id="the-challenge-rendering-realistic-cloth">The challenge: Rendering realistic cloth</h2>
 
-&lt;p&gt;I was thinking a lot about materials before I started this, particularly how texture isn’t really a thing when you look close enough: there’s only geometry and material. Texture is how we perceive fine surface details.&lt;/p&gt;
+<p>I was thinking a lot about materials before I started this, particularly how texture isn’t really a thing when you look close enough: there’s only geometry and material. Texture is how we perceive fine surface details.</p>
 
-&lt;p&gt;It follows, then, that realistic rendering should use ultra-detailed geometry, not textures.&lt;/p&gt;
+<p>It follows, then, that realistic rendering should use ultra-detailed geometry, not textures.</p>
 
-&lt;p&gt;I decided to try it, by rendering cloth 🤦‍♀️&lt;/p&gt;
+<p>I decided to try it, by rendering cloth 🤦‍♀️</p>
 
-&lt;h2 id=&quot;breakdown&quot;&gt;Breakdown&lt;/h2&gt;
+<h2 id="breakdown">Breakdown</h2>
 
-&lt;p&gt;To give the scene some scale, I had to show cloth up close. That ended up being difficult - how to show it nicely and give it scale? I decided to make tiny cloth flags and carpet, and use Lego to give it a sense of scale.&lt;/p&gt;
+<p>To give the scene some scale, I had to show cloth up close. That ended up being difficult - how to show it nicely and give it scale? I decided to make tiny cloth flags and carpet, and use Lego to give it a sense of scale.</p>
 
-&lt;p&gt;I started with the lighting. The ambient light has a blue tint and the main light yellow to indicate daytime / sunlight. To provide a visual cue that we’re indoors I added some shadows across the scene, perhaps the wooden frame between window panes.&lt;/p&gt;
+<p>I started with the lighting. The ambient light has a blue tint and the main light yellow to indicate daytime / sunlight. To provide a visual cue that we’re indoors I added some shadows across the scene, perhaps the wooden frame between window panes.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/cloth/lighting.jpg&quot; alt=&quot;Lighting setup&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/cloth/lighting.jpg" alt="Lighting setup" /></p>
 
-&lt;p&gt;Getting the lighting right is important - without the main (sun) light, the scene looks drab and flat.&lt;/p&gt;
+<p>Getting the lighting right is important - without the main (sun) light, the scene looks drab and flat.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/cloth/no_light.jpg&quot; alt=&quot;Lighting setup&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/cloth/no_light.jpg" alt="Lighting setup" /></p>
 
-&lt;p&gt;Apart from that the scene is quite simple - carpet, 2 flags, some lego blocks.&lt;/p&gt;
+<p>Apart from that the scene is quite simple - carpet, 2 flags, some lego blocks.</p>
 
-&lt;h2 id=&quot;cloth-rendering&quot;&gt;Cloth rendering&lt;/h2&gt;
+<h2 id="cloth-rendering">Cloth rendering</h2>
 
-&lt;p&gt;Here’s how the cloth works:&lt;/p&gt;
+<p>Here’s how the cloth works:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/cloth/zoom1.jpg&quot; alt=&quot;Zoomed cloth&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/cloth/zoom1.jpg" alt="Zoomed cloth" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/cloth/zoom2.jpg&quot; alt=&quot;Zoomed cloth&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/cloth/zoom2.jpg" alt="Zoomed cloth" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/cloth/zoom3.jpg&quot; alt=&quot;Zoomed cloth&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/cloth/zoom3.jpg" alt="Zoomed cloth" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/cloth/zoom4.jpg&quot; alt=&quot;Zoomed cloth&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/cloth/zoom4.jpg" alt="Zoomed cloth" /></p>
 
-&lt;p&gt;It’s literally just modelled down to fibre level 🙃 With path tracing this is actually viable - with many samples per pixel aliasing is not an issue, and because light bounces around within the threads the lighting and colour is realistic.&lt;/p&gt;
+<p>It’s literally just modelled down to fibre level 🙃 With path tracing this is actually viable - with many samples per pixel aliasing is not an issue, and because light bounces around within the threads the lighting and colour is realistic.</p>
 
-&lt;p&gt;Generating this as a mesh clearly isn’t viable, so this is rendered as a raymarched SDF (signed distance field). In fact only 2 single fibres are drawn - they’re repeated, twisted around themselves to form threads, mirrored and twisted again to form ‘string’ (Lia-Sae will probably tell me that’s the wrong term ;) then repeated and woven together to form cloth.&lt;/p&gt;
+<p>Generating this as a mesh clearly isn’t viable, so this is rendered as a raymarched SDF (signed distance field). In fact only 2 single fibres are drawn - they’re repeated, twisted around themselves to form threads, mirrored and twisted again to form ‘string’ (Lia-Sae will probably tell me that’s the wrong term ;) then repeated and woven together to form cloth.</p>
 
-&lt;p&gt;This is how it works in cross-section:&lt;/p&gt;
+<p>This is how it works in cross-section:</p>
 
-&lt;iframe width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; src=&quot;https://www.shadertoy.com/embed/3dSBRK?gui=true&amp;amp;t=10&amp;amp;paused=true&amp;amp;muted=false&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+<iframe width="640" height="360" frameborder="0" src="https://www.shadertoy.com/embed/3dSBRK?gui=true&amp;t=10&amp;paused=true&amp;muted=false" allowfullscreen=""></iframe>
 
-&lt;h3 id=&quot;the-importance-of-light-bounces&quot;&gt;The importance of light bounces&lt;/h3&gt;
+<h3 id="the-importance-of-light-bounces">The importance of light bounces</h3>
 
-&lt;p&gt;Each time the ray bounces, it transmits colour from the surface. This means if a ray bounces multiple times within the cloth, it both increases the brightness of the cloth and also the richness of the colour.&lt;/p&gt;
+<p>Each time the ray bounces, it transmits colour from the surface. This means if a ray bounces multiple times within the cloth, it both increases the brightness of the cloth and also the richness of the colour.</p>
 
-&lt;p&gt;This turns out to be critical:&lt;/p&gt;
+<p>This turns out to be critical:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/cloth/bounces1.jpg&quot; alt=&quot;Effect of light bounces&quot; /&gt;
-&lt;br /&gt;&lt;em&gt;5 bounces per sample&lt;/em&gt;&lt;/p&gt;
+<p><img src="/images/cloth/bounces1.jpg" alt="Effect of light bounces" />
+<br /><em>5 bounces per sample</em></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/cloth/bounces2.jpg&quot; alt=&quot;Effect of light bounces&quot; /&gt;
-&lt;br /&gt;&lt;em&gt;15 bounces per sample&lt;/em&gt;&lt;/p&gt;
+<p><img src="/images/cloth/bounces2.jpg" alt="Effect of light bounces" />
+<br /><em>15 bounces per sample</em></p>
 
-&lt;h2 id=&quot;the-downside&quot;&gt;The downside&lt;/h2&gt;
+<h2 id="the-downside">The downside</h2>
 
-&lt;p&gt;Of course there’s a catch: rendering geometry this fine is &lt;em&gt;expensive&lt;/em&gt;. I optimised this to hell, and it’s still very slow - especially when many light bounces are needed. I think in the end the release version only manages ~12 samples per pixel on my GPU (a Vega 56), which is why it’s a bit noisy…&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Nova 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data) with help from Lia-Sae. Download on Demozoo</summary></entry><entry><title type="html">Ice Core (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/05/22/ice-core.html" rel="alternate" type="text/html" title="Ice Core (4KB Executable Graphics)" /><published>2020-05-22T11:46:20+01:00</published><updated>2020-05-22T11:46:20+01:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/05/22/ice-core</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/05/22/ice-core.html">&lt;p&gt;&lt;img src=&quot;/images/ice_core/ice_core_screenshot.jpg&quot; alt=&quot;Ice Core screenshot&quot; /&gt;&lt;/p&gt;
+<p>Of course there’s a catch: rendering geometry this fine is <em>expensive</em>. I optimised this to hell, and it’s still very slow - especially when many light bounces are needed. I think in the end the release version only manages ~12 samples per pixel on my GPU (a Vega 56), which is why it’s a bit noisy…</p>]]></content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html"><![CDATA[Released at Nova 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data) with help from Lia-Sae. Download on Demozoo]]></summary></entry><entry><title type="html">Ice Core (4KB Executable Graphics)</title><link href="http://localhost:4000/demoscene/metal/pathtracing/2020/05/22/ice-core.html" rel="alternate" type="text/html" title="Ice Core (4KB Executable Graphics)" /><published>2020-05-22T11:46:20+01:00</published><updated>2020-05-22T11:46:20+01:00</updated><id>http://localhost:4000/demoscene/metal/pathtracing/2020/05/22/ice-core</id><content type="html" xml:base="http://localhost:4000/demoscene/metal/pathtracing/2020/05/22/ice-core.html"><![CDATA[<p><img src="/images/ice_core/ice_core_screenshot.jpg" alt="Ice Core screenshot" /></p>
 
-&lt;p&gt;Released at Outline 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
+<p>Released at Outline 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).</p>
 
-&lt;p&gt;&lt;a href=&quot;https://demozoo.org/graphics/278502/&quot;&gt;Download on Demozoo&lt;/a&gt;
-&lt;!--more--&gt;&lt;/p&gt;
+<p><a href="https://demozoo.org/graphics/278502/">Download on Demozoo</a>
+<!--more--></p>
 
-&lt;h2 id=&quot;2nd-demoscene-release&quot;&gt;2nd demoscene release&lt;/h2&gt;
+<h2 id="2nd-demoscene-release">2nd demoscene release</h2>
 
-&lt;p&gt;I wanted to do something for Outline, but didn’t have a huge amount of time. I had a WIP shader of an ice core to hand, so I quickly put this together. It came last in the competition, but I liked it :)&lt;/p&gt;
+<p>I wanted to do something for Outline, but didn’t have a huge amount of time. I had a WIP shader of an ice core to hand, so I quickly put this together. It came last in the competition, but I liked it :)</p>
 
-&lt;h2 id=&quot;tech&quot;&gt;Tech&lt;/h2&gt;
+<h2 id="tech">Tech</h2>
 
-&lt;p&gt;There’s nothing particularly new here - it’s path traced glass again, but this time with the lighting set up to give nice caustics.&lt;/p&gt;
+<p>There’s nothing particularly new here - it’s path traced glass again, but this time with the lighting set up to give nice caustics.</p>
 
-&lt;p&gt;The ice core is just a glass cylinder sliced into sections. Each section has a random colour and roughness value to produce the varied ice layers.&lt;/p&gt;
+<p>The ice core is just a glass cylinder sliced into sections. Each section has a random colour and roughness value to produce the varied ice layers.</p>
 
-&lt;p&gt;There are also bubbles and particles within the ice. The geometry is an SDF, and the one nice trick I came up with here is the dark particles - I used &lt;code class=&quot;highlighter-rouge&quot;&gt;p = fract(p);&lt;/code&gt; to repeat space, then placed a sphere at a random position in each cell.&lt;/p&gt;
+<p>There are also bubbles and particles within the ice. The geometry is an SDF, and the one nice trick I came up with here is the dark particles - I used <code class="language-plaintext highlighter-rouge">p = fract(p);</code> to repeat space, then placed a sphere at a random position in each cell.</p>
 
-&lt;p&gt;Normally it’s important to keep the sphere inside the cell to avoid artefacts, but in this case such artefacts produce dark spots in the ice - which look like floating particles ;)&lt;/p&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Outline 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry><entry><title type="html">Undefined Symbol (4KB Executable Graphics)</title><link href="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/04/12/undefined-symbol.html" rel="alternate" type="text/html" title="Undefined Symbol (4KB Executable Graphics)" /><published>2020-04-12T11:46:20+01:00</published><updated>2020-04-12T11:46:20+01:00</updated><id>https://alia-traces.github.io/demoscene/metal/pathtracing/2020/04/12/undefined-symbol</id><content type="html" xml:base="https://alia-traces.github.io/demoscene/metal/pathtracing/2020/04/12/undefined-symbol.html">&lt;p&gt;&lt;img src=&quot;/images/undefined_symbol/undefined_symbol_screenshot.jpg&quot; alt=&quot;Undefined Symbol screenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Released at Revision 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data).&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://demozoo.org/graphics/277166/&quot;&gt;Download on Demozoo&lt;/a&gt;
-&lt;!--more--&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;hello-world&quot;&gt;Hello World&lt;/h2&gt;
-
-&lt;p&gt;This was my first demoscene release as Alia (but not my first scene release :) so I wanted to make something good. I’m fairly happy with how it worked out.&lt;/p&gt;
-
-&lt;p&gt;The general plan was to make something abstract but realistically rendered, with a lot of symbolism. This isn’t something that works well in a demo competition, and it came 11th out of 16 but I want to make interesting art, not win competitions.&lt;/p&gt;
-
-&lt;h2 id=&quot;tech&quot;&gt;Tech&lt;/h2&gt;
-
-&lt;p&gt;It’s GPU path traced, using my own path tracer in a single Metal compute shader. This supports complex materials including glass.&lt;/p&gt;
-
-&lt;p&gt;The executable is written in PyObjC, a highly unpleasant combination of Python and Objective C. Unfortunately there isn’t a good exe compressor for macOS, and this at least works. That fires up Metal, selects a GPU (it uses an eGPU if one is connected), then runs the shader repeatedly to accumulate samples. It stops and displays the picture when 30 seconds is up (the competition rules state 4KB and 30 seconds max).&lt;/p&gt;
-
-&lt;p&gt;The python script is then compressed with gzip, and wrapped in a bash script that unpacks and runs it.&lt;/p&gt;
-
-&lt;h2 id=&quot;symbolism&quot;&gt;Symbolism&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;The cactus represents masculinity&lt;/li&gt;
-  &lt;li&gt;The vase and flower, femininity&lt;/li&gt;
-  &lt;li&gt;The arch above forms a bridge between the two sides&lt;/li&gt;
-  &lt;li&gt;The colours in the glass are pink, blue and clear (white… kinda), the colours of the transgender flag&lt;/li&gt;
-  &lt;li&gt;The camera looks through an open window - this is a point of view&lt;/li&gt;
-  &lt;li&gt;The background objects, a sphere a cube and a torus, represent graphics and the demoscene. Naturally, they’re shiny :)&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html">Released at Revision 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo</summary></entry></feed>
+<p>Normally it’s important to keep the sphere inside the cell to avoid artefacts, but in this case such artefacts produce dark spots in the ice - which look like floating particles ;)</p>]]></content><author><name></name></author><category term="demoscene" /><category term="metal" /><category term="pathtracing" /><summary type="html"><![CDATA[Released at Outline 2020, 4KB Executable Graphics (a single 4KB executable file generates this image, with no external data). Download on Demozoo]]></summary></entry></feed>

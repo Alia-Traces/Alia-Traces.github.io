@@ -2,22 +2,24 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>How to use Metal frame capture outside of Xcode | Alia’s artefacts</title>
-<meta name="generator" content="Jekyll v3.8.7" />
+<meta name="generator" content="Jekyll v4.3.1" />
 <meta property="og:title" content="How to use Metal frame capture outside of Xcode" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview. MetalToy looks like this" />
 <meta property="og:description" content="Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview. MetalToy looks like this" />
-<link rel="canonical" href="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" />
-<meta property="og:url" content="https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" />
+<link rel="canonical" href="http://localhost:4000/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" />
+<meta property="og:url" content="http://localhost:4000/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html" />
 <meta property="og:site_name" content="Alia’s artefacts" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-07-18T11:46:20+01:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="How to use Metal frame capture outside of Xcode" />
 <script type="application/ld+json">
-{"url":"https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html","headline":"How to use Metal frame capture outside of Xcode","dateModified":"2020-07-18T11:46:20+01:00","datePublished":"2020-07-18T11:46:20+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://alia-traces.github.io/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html"},"description":"Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview. MetalToy looks like this","@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-07-18T11:46:20+01:00","datePublished":"2020-07-18T11:46:20+01:00","description":"Some time ago I wrote my own live shader editor for Metal shaders - MetalToy, named after ShaderToy, since I wanted something like shadertoy for Metal. It’s basic but very useful - I can edit shaders in any editor (I use Xcode), hit cmd-s to save and MetalToy will update the live preview. MetalToy looks like this","headline":"How to use Metal frame capture outside of Xcode","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html"},"url":"http://localhost:4000/metal/tools/xcode/2020/07/18/adding-framecapture-outside-of-xcode.html"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://alia-traces.github.io/feed.xml" title="Alia's artefacts" /></head>
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Alia&apos;s artefacts" /></head>
 <body><header class="site-header" role="banner">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">Alia&#39;s artefacts</a><nav class="site-nav">
@@ -124,7 +126,7 @@
 	<span class="k">let</span> <span class="nv">standardPath</span> <span class="o">=</span> <span class="n">destURL</span><span class="o">.</span><span class="n">path</span>
 	<span class="k">let</span> <span class="nv">scriptSource</span> <span class="o">=</span> <span class="s">"tell application </span><span class="se">\"</span><span class="s">Xcode</span><span class="se">\"\n</span><span class="s">open </span><span class="se">\"\(</span><span class="n">standardPath</span><span class="se">)\"\n</span><span class="s">end tell"</span>
 	<span class="k">let</span> <span class="nv">script</span> <span class="o">=</span> <span class="kt">NSAppleScript</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">source</span><span class="p">:</span> <span class="n">scriptSource</span><span class="p">)</span>
-	<span class="kt">DispatchQueue</span><span class="p">(</span><span class="nv">label</span><span class="p">:</span> <span class="s">"XcodeOpen"</span><span class="p">,</span> <span class="nv">qos</span><span class="p">:</span> <span class="o">.</span><span class="n">utility</span><span class="p">,</span> <span class="nv">attributes</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">concurrent</span><span class="p">],</span> <span class="nv">autoreleaseFrequency</span><span class="p">:</span> <span class="o">.</span><span class="n">inherit</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+	<span class="kt">DispatchQueue</span><span class="p">(</span><span class="nv">label</span><span class="p">:</span> <span class="s">"XcodeOpen"</span><span class="p">,</span> <span class="nv">qos</span><span class="p">:</span> <span class="o">.</span><span class="n">utility</span><span class="p">,</span> <span class="nv">attributes</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">concurrent</span><span class="p">],</span> <span class="nv">autoreleaseFrequency</span><span class="p">:</span> <span class="o">.</span><span class="n">inherit</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span><span class="o">.</span><span class="k">async</span> <span class="p">{</span>
 			<span class="n">script</span><span class="p">?</span><span class="o">.</span><span class="nf">executeAndReturnError</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
 	<span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
@@ -147,7 +149,7 @@
           <li class="p-name">Alia&#39;s artefacts</li></ul>
       </div>
 
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.twitter.com/aliatraces"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">aliatraces</span></a></li><li><a href="https://demozoo.org/sceners/113525/"><span class="username">Demozoo: Alia</span></a></li></ul>
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a rel="me" href="https://tech.lgbt/@alia"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#mastodon"></use></svg> <span class="username">tech.lgbt/@alia</span></a></li><li><a href="https://www.twitter.com/aliatraces"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">aliatraces</span></a></li><li><a href="https://demozoo.org/sceners/113525/"><span class="username">Demozoo: Alia</span></a></li></ul>
 </div>
 
       <div class="footer-col footer-col-3">
